@@ -41,3 +41,4 @@
 ---
 
 -   [RxJS Docs](https://rxjs.dev/guide/overview)
+-   [NgRx](https://ngrx.io/)
