@@ -6,8 +6,43 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    .jui-dual-ring-loading {
+      position: absolute;
+      z-index: -1;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: inline-block;
+      width: 80px;
+      height: 80px;
+    }
+
+    .jui-dual-ring-loading:after {
+      content: " ";
+      display: block;
+      width: 64px;
+      height: 64px;
+      margin: 8px;
+      border-radius: 50%;
+      border: 6px solid #fff;
+      border-color: #1890ff transparent #1890ff transparent;
+      animation: juiDuaiRing 1.2s linear infinite;
+    }
+
+    @keyframes juiDuaiRing {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
 </head>
 <body>
   <app-root></app-root>
+  <div class="jui-dual-ring-loading"></div>
 </body>
 </html>
