@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { CLASS_PREFIX } from '../../common/js/constant';
 
 @Component({
@@ -8,23 +8,32 @@ import { CLASS_PREFIX } from '../../common/js/constant';
     './input.component.scss'
   ]
 })
-export class InputComponent implements OnInit {
+export class InputComponent implements OnInit, OnChanges {
   @Input() val;
   @Input() isInput: boolean;
   @Input() placeHolderClass: string;
-  @Input() onPlaceHolderBlur;
-  @Input() onPlaceholderClick;
-  @Input() onPlaceholderDoubleClick;
-  @Input() onPlaceholderMouseout;
-  @Input() onEnterPress;
-  @Input() onInputBlur;
-  @Input() onInputFocus;
-  @Input() onValueChange;
   @Input() selected: boolean;
+  @Output() onPlaceholderClick = new EventEmitter();
+  @Output() onPlaceHolderBlur = new EventEmitter();
+  @Output() onPlaceholderDoubleClick = new EventEmitter();
+  @Output() onPlaceholderMouseout = new EventEmitter();
+  @Output() onEnterPress = new EventEmitter();
+  @Output() onInputBlur = new EventEmitter();
+  @Output() onInputFocus = new EventEmitter();
+  @Output() onValueChange = new EventEmitter();
 
   prefix: string = `${CLASS_PREFIX}input-wrapper`;
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    //Add '${implements OnChanges}' to the class.
+    console.log(changes);
+  }
+  handlePlaceholderClick() {
+    this.onPlaceholderClick.emit('child click');
+  }
 }

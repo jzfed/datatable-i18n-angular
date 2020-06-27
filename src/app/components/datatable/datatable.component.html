@@ -1,1 +1,127 @@
-<p>datatable works!</p>
+<div [ngClass]="[prefix]">
+  <div class="table-toolbar">
+    <div class="table-action">
+      <app-button
+        type="primary"
+        [round]="true"
+      >
+        add
+      </app-button>
+      <app-button
+        type="primary"
+        [round]="true"
+      >
+        edit
+      </app-button>
+      <app-button
+        [round]="true"
+        type="primary"
+      >
+        update
+      </app-button>
+      <app-button
+        type="danger"
+        [round]="true"
+      >
+        delete
+      </app-button>
+    </div>
+
+    <div class="language-switcher">
+      <app-button
+        type="default"
+        size="small"
+      >
+        English
+      </app-button>
+      <app-button
+        type="default"
+        size="small"
+      >
+        中 文
+      </app-button>
+    </div>
+  </div>
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>
+          <input
+            type="checkbox"
+            readOnly
+          />
+        </th>
+        <th>
+          indexKey
+          <app-icon size="12"></app-icon>
+        </th>
+        <th>indexKey</th>
+        <th>indexKey</th>
+        <th>indexKey</th>
+        <th>indexKey</th>
+        <th>indexKey</th>
+      </tr>
+    </thead>
+    <tbody style="display:table">
+      <tr>
+        <td>
+          <input type="checkbox" />
+        </td>
+        <td>
+
+          <app-input
+            val="test test"
+            [isInput]="false"
+          ></app-input>
+        </td>
+        <td>
+
+          <app-input
+            val="test test"
+            [isInput]="false"
+          ></app-input>
+        </td>
+        <td>
+
+          <app-input
+            val="test test"
+            [isInput]="false"
+          ></app-input>
+        </td>
+        <td>
+
+          <app-input
+            val="test test"
+            [isInput]="false"
+          ></app-input>
+        </td>
+        <td>
+
+          <app-input
+            val="test test"
+            [isInput]="false"
+          ></app-input>
+        </td>
+        <td>
+
+          <app-input
+            val="test test"
+            [isInput]="false"
+          ></app-input>
+        </td>
+      </tr>
+      <!-- <tr>
+        <td
+          colSpan="7"
+          class="empty-data"
+        >
+          noData
+        </td>
+      </tr> -->
+
+    </tbody>
+  </table>
+  <div class="loading-mask">
+    <app-loading></app-loading>
+  </div>
+</div>

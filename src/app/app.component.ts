@@ -9,7 +9,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'datatable-i18n-angular';
+  isInput: boolean;
   constructor() {
     (document.querySelector('.jui-dual-ring-loading') as HTMLDivElement).style.display = 'none';
+  }
+  test($event) {
+    this.isInput = !this.isInput;
+    console.log($event);
   }
 }

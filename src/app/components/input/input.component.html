@@ -3,10 +3,10 @@
     *ngIf="isInput; else elseBlock"
     type="text"
   />
-  <ng-template
-    #elseBlock
-    class="placeholder-text"
-  >
-    <div>{{val}}</div>
+  <ng-template #elseBlock>
+    <div
+      class="placeholder-text"
+      (click)="handlePlaceholderClick()"
+    >{{val}}</div>
   </ng-template>
 </div>

@@ -13,8 +13,17 @@
   [highlight]="true"
 >First Test</app-button> -->
 
-<app-input
+<!-- <app-input
   val="Jason Zhang"
-  [isInput]="true"
-></app-input>
-<router-outlet></router-outlet>
+  [isInput]="isInput"
+  (onPlaceholderClick)="test($event)"
+></app-input> -->
+
+<!-- <app-icon></app-icon>
+<app-loading></app-loading> -->
+
+<div class="app">
+  <app-datatable></app-datatable>
+
+  <router-outlet></router-outlet>
+</div>
