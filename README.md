@@ -1,6 +1,6 @@
 # I18N Data Table Project(Angular version)
 
-#### Requirement
+## Requirement
 
 ---
 
@@ -12,7 +12,7 @@
 - Add will add an empty row to fill in the data except the ID, which will be filled after updating
 - Think of how to localize this
 
-#### Todo List
+## Todo List
 
 ---
 
@@ -21,7 +21,7 @@
 - [ ] Develop the simple version.
 - [ ] Implement the i18n support.
 
-#### Technology stack
+## Technology stack
 
 ---
 
@@ -31,13 +31,13 @@
 - NgRx
 - OpenAPI 3.0
 
-#### Preview
+## Preview
 
 ---
 
 - [Prview it online.](https://datatable-i18n-angular.now.sh/)
 
-#### Reference
+## Reference
 
 ---
 

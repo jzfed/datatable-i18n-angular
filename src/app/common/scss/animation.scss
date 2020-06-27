@@ -1,0 +1,53 @@
+@mixin borderHighlightGen($name, $color, $lightSize:3px, $alpha: 0.3) {
+	@keyframes #{$name} {
+		0% {
+			outline: 1px solid $color;
+			box-shadow: 0 0 0 $lightSize change-color($color, $alpha: $alpha);
+		}
+		50% {
+			outline: 1px solid transparent;
+			box-shadow: 0 0 0 0px change-color($color, $alpha: $alpha);
+		}
+		100% {
+			outline: 1px solid $color;
+			box-shadow: 0 0 0 $lightSize change-color($color, $alpha: $alpha);
+		}
+	}
+}
+
+@mixin borderBlinkGen($name, $color, $borderSize:1px) {
+	@keyframes #{$name} {
+		0% {
+			outline: $borderSize solid $color;
+		}
+		50% {
+			outline: $borderSize solid transparent;
+		}
+		100% {
+			outline: $borderSize solid $color;
+		}
+	}
+}
+
+@mixin bgColorBlinkGen($name, $color) {
+	@keyframes #{$name} {
+		0% {
+			background-color: change-color($color, $alpha: 0.3);
+		}
+		50% {
+			background-color: change-color($color, $alpha: 0);
+		}
+		100% {
+			background-color: change-color($color, $alpha: 0.3);
+		}
+	}
+}
+
+@include borderHighlightGen(borderHighlightBlue, $primaryBlue, 5px);
+@include borderHighlightGen(borderHighlightRed, $dangerColor, 5px);
+
+@include borderBlinkGen(borderBlinkBlue, $primaryBlue, 2px);
+@include borderBlinkGen(borderBlinkRed, $dangerColor, 2px);
+
+@include bgColorBlinkGen(bgColorBlueHighlight, $primaryBlue);
+@include bgColorBlinkGen(bgColorRedHighlight, $dangerColor);

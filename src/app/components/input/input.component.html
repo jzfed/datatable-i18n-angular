@@ -1,0 +1,12 @@
+<div [ngClass]="[prefix]">
+  <input
+    *ngIf="isInput; else elseBlock"
+    type="text"
+  />
+  <ng-template
+    #elseBlock
+    class="placeholder-text"
+  >
+    <div>{{val}}</div>
+  </ng-template>
+</div>
