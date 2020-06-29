@@ -10,7 +10,7 @@ export const initialState: AddressState = fromJS({
 
 const addressBookReducer = createReducer(
   initialState,
-  on(AddressBookActions.fetchDataStarted, (state) => {
+  on(AddressBookActions.fetchAddressData, (state) => {
     return state.setIn(
       [
         'isLoading'

@@ -18,13 +18,16 @@ export class DatatableComponent implements OnInit {
   @Input() dataIndex;
   prefix: string = `${CLASS_PREFIX}table-wrapper`;
   $$datatable: Observable<any>;
+  isLoading: Observable<boolean>;
   tableColIndex: string[][];
   constructor(private readonly store: Store) {}
 
   ngOnInit(): void {
-    console.log('fixColumnWidth', this.fixColumnWidth);
+    // console.log('fixColumnWidth', this.fixColumnWidth);
     this.tableColIndex = Object.entries(dataIndex);
-    console.log('tableColIndex', this.tableColIndex);
+    // console.log('tableColIndex', this.tableColIndex);
+    this.isLoading = this.store.pipe(select(fromAddressSelector.selectLoadingStatus));
+    this.isLoading.subscribe((data) => console.log('DatatableComponent get isLoading:', data));
     this.$$datatable = this.store.pipe(select(fromAddressSelector.selectAddressBook));
     this.$$datatable.subscribe((data) => console.log('DatatableComponent get data:', data));
     this.store.dispatch(AddressActions.fetchAddressData());

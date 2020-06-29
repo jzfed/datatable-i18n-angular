@@ -8,3 +8,10 @@ export const selectAddressBook = createSelector(selectAddressData, (state: Map<s
   console.log('selectAddressBook', state.get('$$address'));
   return state.get('$$address');
 });
+
+export const getLoadingStatus = (state: AppState) => state.$$datatable;
+
+export const selectLoadingStatus = createSelector(getLoadingStatus, (state: Map<string, any>) => {
+  // console.log('getLoadingStatus', state.get('isLoading'));
+  return state.get('isLoading');
+});

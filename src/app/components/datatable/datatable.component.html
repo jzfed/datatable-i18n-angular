@@ -88,7 +88,10 @@
 
     </tbody>
   </table>
-  <div class="loading-mask">
+  <div
+    class="loading-mask"
+    [ngClass]="{'loading': isLoading |async}"
+  >
     <app-loading></app-loading>
   </div>
 </div>
