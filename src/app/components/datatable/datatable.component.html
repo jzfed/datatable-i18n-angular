@@ -4,26 +4,27 @@
       <app-button
         type="primary"
         [round]="true"
+        (click)="fetchData()"
       >
-        add
+        Add
       </app-button>
       <app-button
         type="primary"
         [round]="true"
       >
-        edit
+        Edit
       </app-button>
       <app-button
         [round]="true"
         type="primary"
       >
-        update
+        Update
       </app-button>
       <app-button
         type="danger"
         [round]="true"
       >
-        delete
+        Delete
       </app-button>
     </div>
 
@@ -38,10 +39,11 @@
         type="default"
         size="small"
       >
-        中 文
+        Chinese
       </app-button>
     </div>
   </div>
+
   <table class="striped">
     <thead>
       <tr>
@@ -51,64 +53,29 @@
             readOnly
           />
         </th>
-        <th>
-          indexKey
-          <app-icon size="12"></app-icon>
-        </th>
-        <th>indexKey</th>
-        <th>indexKey</th>
-        <th>indexKey</th>
-        <th>indexKey</th>
-        <th>indexKey</th>
+        <ng-container *ngFor="let thWidth of fixColumnWidth; index as i">
+          <th [width]="thWidth">{{tableColIndex[i][1]}}</th>
+        </ng-container>
       </tr>
     </thead>
     <tbody style="display:table">
-      <tr>
+      <tr *ngFor="let trItem of $$datatable | async as list">
+
         <td>
           <input type="checkbox" />
         </td>
-        <td>
+        <td
+          width="{{fixColumnWidth[i]}}"
+          *ngFor="let tdIndexName of tableColIndex; index as i"
+        >
 
           <app-input
-            val="test test"
+            *ngIf="trItem[tdIndexName[0]]"
+            val="{{trItem[tdIndexName[0]]}}"
             [isInput]="false"
           ></app-input>
         </td>
-        <td>
 
-          <app-input
-            val="test test"
-            [isInput]="false"
-          ></app-input>
-        </td>
-        <td>
-
-          <app-input
-            val="test test"
-            [isInput]="false"
-          ></app-input>
-        </td>
-        <td>
-
-          <app-input
-            val="test test"
-            [isInput]="false"
-          ></app-input>
-        </td>
-        <td>
-
-          <app-input
-            val="test test"
-            [isInput]="false"
-          ></app-input>
-        </td>
-        <td>
-
-          <app-input
-            val="test test"
-            [isInput]="false"
-          ></app-input>
-        </td>
       </tr>
       <!-- <tr>
         <td

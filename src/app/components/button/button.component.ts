@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CLASS_PREFIX } from '../../common/js/constant';
+import { CLASS_PREFIX } from '../../common/ts/constant';
 
 @Component({
   selector: 'app-button',

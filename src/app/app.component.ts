@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CLASS_PREFIX, dataIndex } from './common/ts/constant';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'datatable-i18n-angular';
   isInput: boolean;
+  dataIndex = dataIndex;
   constructor() {
     (document.querySelector('.jui-dual-ring-loading') as HTMLDivElement).style.display = 'none';
   }
