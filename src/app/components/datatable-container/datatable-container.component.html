@@ -1,0 +1,19 @@
+<app-datatable
+  [fixColumnWidth]="['5%', '20%', '18%', '15%', '20%', '20%']"
+  [tableColIndex]="tableColIndex"
+  [data]="data"
+>
+  <ng-container toolbar>
+    <app-datatable-toolbar></app-datatable-toolbar>
+  </ng-container>
+
+  <ng-container loading>
+    <div
+      class="loading-mask"
+      [ngClass]="{'loading': isLoading |async}"
+    >
+      <app-loading></app-loading>
+    </div>
+  </ng-container>
+
+</app-datatable>

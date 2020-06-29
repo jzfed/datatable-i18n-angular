@@ -1,37 +1,59 @@
-import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
-import { CLASS_PREFIX, dataIndex } from '../../common/ts/constant';
-import { Store, select } from '@ngrx/store';
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  Input,
+  ElementRef,
+  OnChanges,
+  AfterViewChecked,
+  AfterContentInit,
+  AfterViewInit,
+  AfterContentChecked,
+  DoCheck,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from '@angular/core';
+import { CLASS_PREFIX } from '../../common/ts/constant';
 import { Observable } from 'rxjs';
-import * as fromAddressSelector from '../../state/datatable.selector';
-import * as AddressActions from '../../state/datatable.action';
+import { UsersAddressData } from 'src/app/common/ts/interface';
 
 @Component({
   selector: 'app-datatable',
   templateUrl: './datatable.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: [
     './datatable.component.scss'
   ],
   encapsulation: ViewEncapsulation.None
 })
-export class DatatableComponent implements OnInit {
-  @Input() fixColumnWidth;
-  @Input() dataIndex;
+export class DatatableComponent implements OnInit, AfterViewChecked {
+  @Input() fixColumnWidth: Array<string>;
+  @Input() tableColIndex;
+  @Input() data: Observable<UsersAddressData>;
+
   prefix: string = `${CLASS_PREFIX}table-wrapper`;
-  $$datatable: Observable<any>;
-  isLoading: Observable<boolean>;
-  tableColIndex: string[][];
-  constructor(private readonly store: Store) {}
+  constructor(private el: ElementRef, private changeDetector: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    // console.log('fixColumnWidth', this.fixColumnWidth);
-    this.tableColIndex = Object.entries(dataIndex);
-    // console.log('tableColIndex', this.tableColIndex);
-    this.isLoading = this.store.pipe(select(fromAddressSelector.selectLoadingStatus));
-    this.isLoading.subscribe((data) => console.log('DatatableComponent get isLoading:', data));
-    this.$$datatable = this.store.pipe(select(fromAddressSelector.selectAddressBook));
-    this.$$datatable.subscribe((data) => console.log('DatatableComponent get data:', data));
-    this.store.dispatch(AddressActions.fetchAddressData());
+    // this.data.subscribe(
+    //   // () => this.changeDetector.markForCheck(),
+    //   // console.log(
+    //   //   'height',
+    //   //   (this.el.nativeElement.firstElementChild as HTMLDivElement).querySelector('table').offsetHeight
+    //   // );
+    //   // (data) => {
+    //   //   console.log('changeDetector', data);
+    //   // },
+    //   null,
+    //   null
+    // );
   }
 
-  fetchData() {}
+  ngAfterViewChecked() {
+    console.log(
+      'height',
+      (this.el.nativeElement.firstElementChild as HTMLDivElement).querySelector('table').offsetHeight
+    );
+    console.dir(this.el.nativeElement.firstElementChild);
+  }
 }

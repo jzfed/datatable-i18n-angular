@@ -9,9 +9,6 @@ export const selectAddressBook = createSelector(selectAddressData, (state: Map<s
   return state.get('$$address');
 });
 
-export const getLoadingStatus = (state: AppState) => state.$$datatable;
-
-export const selectLoadingStatus = createSelector(getLoadingStatus, (state: Map<string, any>) => {
-  // console.log('getLoadingStatus', state.get('isLoading'));
+export const selectLoadingStatus = createSelector(selectAddressData, (state: Map<string, any>) => {
   return state.get('isLoading');
 });

@@ -1,49 +1,6 @@
 <div [ngClass]="[prefix]">
-  <div class="table-toolbar">
-    <div class="table-action">
-      <app-button
-        type="primary"
-        [round]="true"
-        (click)="fetchData()"
-      >
-        Add
-      </app-button>
-      <app-button
-        type="primary"
-        [round]="true"
-      >
-        Edit
-      </app-button>
-      <app-button
-        [round]="true"
-        type="primary"
-      >
-        Update
-      </app-button>
-      <app-button
-        type="danger"
-        [round]="true"
-      >
-        Delete
-      </app-button>
-    </div>
 
-    <div class="language-switcher">
-      <app-button
-        type="default"
-        size="small"
-      >
-        English
-      </app-button>
-      <app-button
-        type="default"
-        size="small"
-      >
-        Chinese
-      </app-button>
-    </div>
-  </div>
-
+  <ng-content select="[toolbar]"></ng-content>
   <table class="striped">
     <thead>
       <tr>
@@ -59,19 +16,19 @@
       </tr>
     </thead>
     <tbody style="display:table">
-      <tr *ngFor="let trItem of $$datatable | async as list">
+      <tr *ngFor="let trItem of data | async as list">
 
         <td>
           <input type="checkbox" />
         </td>
         <td
-          width="{{fixColumnWidth[i]}}"
+          [width]="fixColumnWidth[i]"
           *ngFor="let tdIndexName of tableColIndex; index as i"
         >
 
           <app-input
             *ngIf="trItem[tdIndexName[0]]"
-            val="{{trItem[tdIndexName[0]]}}"
+            [val]="trItem[tdIndexName[0]]"
             [isInput]="false"
           ></app-input>
         </td>
@@ -88,10 +45,6 @@
 
     </tbody>
   </table>
-  <div
-    class="loading-mask"
-    [ngClass]="{'loading': isLoading |async}"
-  >
-    <app-loading></app-loading>
-  </div>
+  <ng-content select="[loading]"></ng-content>
+
 </div>

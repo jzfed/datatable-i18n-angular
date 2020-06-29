@@ -16,7 +16,13 @@ import * as fromAddressBook from './state/datatable.reducer';
 import { AddressBookEffects } from './state/datatable.effects';
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment'; // A
+import { environment } from '../environments/environment';
+
+import { AddressBookComponent } from './page/address-book/address-book.component';
+import { DatatableContainerComponent } from './components/datatable-container/datatable-container.component';
+import { PageNotFoundComponent } from './page/page-not-found/page-not-found.component';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { DatatableToolbarComponent } from './components/datatable-toolbar/datatable-toolbar.component'; // A
 
 @NgModule({
   declarations: [
@@ -25,7 +31,12 @@ import { environment } from '../environments/environment'; // A
     ButtonComponent,
     InputComponent,
     LoadingComponent,
-    IconComponent
+    IconComponent,
+    AddressBookComponent,
+    DatatableContainerComponent,
+    PageNotFoundComponent,
+    DialogComponent,
+    DatatableToolbarComponent
   ],
   imports: [
     BrowserModule,

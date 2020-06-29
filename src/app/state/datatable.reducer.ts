@@ -19,7 +19,6 @@ const addressBookReducer = createReducer(
     );
   }),
   on(AddressBookActions.fetchDataSuccess, (state, action: Action) => {
-    console.log('Get success data:', action);
     return state
       .setIn(
         [

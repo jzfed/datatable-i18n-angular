@@ -11,9 +11,7 @@ export class IconComponent implements OnInit {
   @Input() type: string = 'arrow';
   @Input() size: number = 16;
   prefix: string = 'icon';
-  constructor() {
-    console.log(this.type);
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 }

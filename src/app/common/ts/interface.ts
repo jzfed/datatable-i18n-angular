@@ -14,7 +14,7 @@ export interface UsersAddressData {
 }
 
 export interface AppState {
-  $$datatable: any;
+  $$datatable: AddressState;
 }
 
 export interface AddressState extends Map<string, any> {
