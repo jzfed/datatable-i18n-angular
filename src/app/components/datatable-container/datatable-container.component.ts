@@ -30,7 +30,6 @@ export class DatatableContainerComponent implements OnInit {
   isInput: boolean;
   tableColIndex: string[][];
   data: Observable<UsersAddressData>;
-  syncData: UsersAddressData;
   isLoading: Observable<boolean>;
 
   constructor(private el: ElementRef, private addressService: AddressService, private readonly store: Store) {}
@@ -40,13 +39,6 @@ export class DatatableContainerComponent implements OnInit {
     this.isLoading = this.store.pipe(select(fromAddressSelector.selectLoadingStatus));
     // this.isLoading.subscribe((data) => console.log('DatatableComponent get isLoading:', data));
     this.data = this.store.pipe(select(fromAddressSelector.selectAddressBook));
-    this.data.subscribe((data) => {
-      this.syncData = data;
-      // console.log(
-      //   'height',
-      //   getComputedStyle((this.el.nativeElement.firstElementChild as HTMLDivElement).querySelector('table')).height
-      // );
-    });
     // this.$$datatable.subscribe((data) => console.log('DatatableComponent get data:', data));
     this.store.dispatch(AddressActions.fetchAddressData());
   }

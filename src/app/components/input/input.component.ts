@@ -1,9 +1,19 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { CLASS_PREFIX } from '../../common/ts/constant';
 
 @Component({
   selector: 'app-input',
   templateUrl: './input.component.html',
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: [
     './input.component.scss'
   ]
@@ -33,7 +43,7 @@ export class InputComponent implements OnInit, OnChanges {
     //Add '${implements OnChanges}' to the class.
     // console.log(changes);
   }
-  handlePlaceholderClick() {
-    this.onPlaceholderClick.emit('child click');
-  }
+  // handlePlaceholderClick() {
+  //   this.onPlaceholderClick.emit('child click');
+  // }
 }

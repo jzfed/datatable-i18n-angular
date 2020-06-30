@@ -1,7 +1,7 @@
 <app-datatable
   [fixColumnWidth]="['5%', '20%', '18%', '15%', '20%', '20%']"
   [tableColIndex]="tableColIndex"
-  [data]="data"
+  [data]=" data| async"
 >
   <ng-container toolbar>
     <app-datatable-toolbar></app-datatable-toolbar>

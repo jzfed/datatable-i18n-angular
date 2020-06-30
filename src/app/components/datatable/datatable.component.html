@@ -15,33 +15,39 @@
         </ng-container>
       </tr>
     </thead>
-    <tbody style="display:table">
-      <tr *ngFor="let trItem of data | async as list">
+    <tbody>
+      <ng-container *ngIf="data.length > 0; else elseTemplate">
+        <tr *ngFor="let trItem of data as list">
 
-        <td>
-          <input type="checkbox" />
-        </td>
-        <td
-          [width]="fixColumnWidth[i]"
-          *ngFor="let tdIndexName of tableColIndex; index as i"
-        >
+          <td>
+            <input type="checkbox" />
+          </td>
+          <td
+            [width]="fixColumnWidth[i]"
+            *ngFor="let tdIndexName of tableColIndex; index as i"
+          >
+            <!-- {{trItem[tdIndexName[0]]}} -->
+            <app-input
+              *ngIf="trItem[tdIndexName[0]]"
+              [val]="trItem[tdIndexName[0]]"
+              [isInput]="false"
+            ></app-input>
+          </td>
 
-          <app-input
-            *ngIf="trItem[tdIndexName[0]]"
-            [val]="trItem[tdIndexName[0]]"
-            [isInput]="false"
-          ></app-input>
-        </td>
+        </tr>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <tr>
+          <td
+            colSpan="7"
+            class="empty-data"
+          >
+            noData
+          </td>
+        </tr>
+      </ng-template>
 
-      </tr>
-      <!-- <tr>
-        <td
-          colSpan="7"
-          class="empty-data"
-        >
-          noData
-        </td>
-      </tr> -->
+
 
     </tbody>
   </table>

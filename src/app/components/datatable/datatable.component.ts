@@ -11,11 +11,13 @@ import {
   AfterContentChecked,
   DoCheck,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnDestroy
 } from '@angular/core';
 import { CLASS_PREFIX } from '../../common/ts/constant';
-import { Observable } from 'rxjs';
-import { UsersAddressData } from 'src/app/common/ts/interface';
+import { Observable, Subscription, fromEvent } from 'rxjs';
+import { UsersAddressData, UserAddress } from 'src/app/common/ts/interface';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-datatable',
@@ -26,27 +28,21 @@ import { UsersAddressData } from 'src/app/common/ts/interface';
   ],
   encapsulation: ViewEncapsulation.None
 })
-export class DatatableComponent implements OnInit, AfterViewChecked {
+export class DatatableComponent implements OnInit, OnDestroy, AfterViewChecked {
   @Input() fixColumnWidth: Array<string>;
   @Input() tableColIndex;
-  @Input() data: Observable<UsersAddressData>;
-
+  @Input() data: Array<UserAddress>;
   prefix: string = `${CLASS_PREFIX}table-wrapper`;
+  resizeObservable$: Observable<Event>;
+  resizeSubscription$: Subscription;
+
   constructor(private el: ElementRef, private changeDetector: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    // this.data.subscribe(
-    //   // () => this.changeDetector.markForCheck(),
-    //   // console.log(
-    //   //   'height',
-    //   //   (this.el.nativeElement.firstElementChild as HTMLDivElement).querySelector('table').offsetHeight
-    //   // );
-    //   // (data) => {
-    //   //   console.log('changeDetector', data);
-    //   // },
-    //   null,
-    //   null
-    // );
+    this.resizeObservable$ = fromEvent(window, 'resize').pipe(debounceTime(200));
+    this.resizeSubscription$ = this.resizeObservable$.subscribe((evt) => {
+      this.fitTableSizeToScreen();
+    });
   }
 
   ngAfterViewChecked() {
@@ -54,6 +50,30 @@ export class DatatableComponent implements OnInit, AfterViewChecked {
       'height',
       (this.el.nativeElement.firstElementChild as HTMLDivElement).querySelector('table').offsetHeight
     );
-    console.dir(this.el.nativeElement.firstElementChild);
+    this.fitTableSizeToScreen();
+  }
+
+  fitTableSizeToScreen() {
+    const tableWrapperDOM = this.el.nativeElement.firstElementChild;
+    const { top: tableWrapperTop }: DOMRect = tableWrapperDOM.getBoundingClientRect();
+    const tbodyDOM: HTMLTableElement = (tableWrapperDOM as HTMLDivElement).querySelector('table tbody');
+    const { top: tbodyTop, height: tbodyHeight } = tbodyDOM.getBoundingClientRect();
+    const rowHeight = (tableWrapperDOM.querySelector('table tbody tr') as HTMLTableRowElement).offsetHeight;
+
+    if (this.data.length > 0) {
+      let maxBodyHeight: number = Math.floor(window.innerHeight - tableWrapperTop * 2 - tbodyTop);
+      let isOverflow = window.innerHeight < tbodyTop + tableWrapperTop + rowHeight * this.data.length;
+      if (isOverflow) {
+        tbodyDOM.style.height = `${maxBodyHeight}px`;
+        tbodyDOM.style.display = 'block';
+        console.log(maxBodyHeight);
+      } else {
+        tbodyDOM.style.height = ``;
+        tbodyDOM.style.display = 'table';
+      }
+    }
+  }
+  ngOnDestroy() {
+    this.resizeSubscription$.unsubscribe();
   }
 }
