@@ -61,7 +61,7 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewChecked {
     const rowHeight = (tableWrapperDOM.querySelector('table tbody tr') as HTMLTableRowElement).offsetHeight;
 
     if (this.data.length > 0) {
-      let maxBodyHeight: number = Math.floor(window.innerHeight - tableWrapperTop * 2 - tbodyTop);
+      let maxBodyHeight: number = Math.floor(window.innerHeight - tableWrapperTop - tbodyTop - 2);
       let isOverflow = window.innerHeight < tbodyTop + tableWrapperTop + rowHeight * this.data.length;
       if (isOverflow) {
         tbodyDOM.style.height = `${maxBodyHeight}px`;
