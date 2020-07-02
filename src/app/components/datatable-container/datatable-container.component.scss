@@ -8,7 +8,7 @@
 
   .loading-mask {
     background-color: $bgColor;
-    opacity: 0.75;
+    opacity: 0.8;
     position: absolute;
     top: 0;
     left: 0;
@@ -17,11 +17,6 @@
     visibility: hidden;
     &.loading {
       visibility: visible;
-    }
-    .jui-loading-bar {
-      position: absolute;
-      top: 50%;
-      left: 50%;
     }
   }
 

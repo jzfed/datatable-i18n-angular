@@ -10,7 +10,7 @@ export const DATATABLE_FETCH_SUCCESS = '[DataTable] FETCH/SUCCESS';
 export const DATATABLE_FETCH_ERROR = '[DataTable] FETCH/ERROR';
 
 export const fetchDataSuccess = createAction(DATATABLE_FETCH_SUCCESS, props<{ payload: any }>());
-export const fetchDataFailure = createAction(DATATABLE_FETCH_ERROR, props<{ err: Error }>());
+export const fetchDataFailure = createAction(DATATABLE_FETCH_ERROR, props<{ payload: any }>());
 export const fetchAddressData = createAction(DATATABLE_FETCH);
 export const addUserAddress = createAction(DATATABLE_ADD);
 export const updateUserAddress = createAction(DATATABLE_UPDATE, props<{ payload: Object }>());

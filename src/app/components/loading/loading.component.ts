@@ -9,7 +9,7 @@ import { CLASS_PREFIX } from '../../common/ts/constant';
   ]
 })
 export class LoadingComponent implements OnInit {
-  prefix: string = `${CLASS_PREFIX}loading-bar`;
+  prefix: string = `${CLASS_PREFIX}`;
   constructor() {}
 
   ngOnInit(): void {}

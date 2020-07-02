@@ -2,4 +2,18 @@
 
 .#{$prefix}loading-bar {
   color: $primaryBlue;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.#{$prefix}loading-text {
+  color: $primaryBlue;
+  position: absolute;
+  text-align: center;
+  font-size: $bigFontsize;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, 200%);
 }

@@ -100,6 +100,7 @@ table {
         }
 
         &.empty-data {
+          color: $darkGray;
           text-align: center;
           height: 650px;
         }
@@ -111,6 +112,9 @@ table {
       tr {
         &:nth-child(odd) {
           background-color: $bgGray;
+        }
+        &:hover {
+          background-color: change-color($primaryBlue, $alpha: 0.1);
         }
       }
     }

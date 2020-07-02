@@ -35,11 +35,10 @@ import { List } from 'immutable';
 export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit, AfterViewChecked, OnChanges {
   @Input() fixColumnWidth: Array<string>;
   @Input() tableColIndex;
-  @Input() source: List<UserAddress>;
+  @Input() data: List<UserAddress>;
   @ViewChild('tbodyRef', { static: false })
   tbodyRef: ElementRef;
   @ViewChildren('rowsRef') rowsRef: QueryList<ElementRef>;
-  data: Array<UserAddress>;
 
   resizeObservable$: Observable<Event>;
   resizeSubscription$: Subscription;
@@ -49,7 +48,6 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit, Aft
   constructor(private el: ElementRef, private changeDetector: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.data = this.source.toJS();
     this.resizeObservable$ = fromEvent(window, 'resize').pipe(debounceTime(200));
     this.resizeSubscription$ = this.resizeObservable$.subscribe((evt) => {
       this.fitTableSizeToScreen();
@@ -57,7 +55,6 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit, Aft
   }
 
   ngOnChanges(changes) {
-    this.data = this.source.toJS();
     console.log('DatatableComponent -> ngOnChanges -> changes', changes);
   }
 
@@ -70,18 +67,17 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit, Aft
   ngAfterViewChecked() {
     console.log('DatatableComponent -> ngAfterViewChecked -> this.tbodyDOM', this.tbodyDOM);
     this.fitTableSizeToScreen();
-    this.changeDetector.detectChanges();
   }
 
   fitTableSizeToScreen() {
-    const tableWrapperDOM = this.el.nativeElement.firstElementChild;
+    const tableWrapperDOM = this.el.nativeElement.parentElement;
     const { top: tableWrapperTop }: DOMRect = tableWrapperDOM.getBoundingClientRect();
     const { top: tbodyTop } = this.tbodyDOM.getBoundingClientRect();
 
-    if (this.data.length > 0) {
+    if (this.data.size > 0) {
       const rowHeight = this.rowsRef.first.nativeElement.offsetHeight;
       let maxBodyHeight: number = Math.floor(window.innerHeight - tableWrapperTop - tbodyTop - 2);
-      let isOverflow = window.innerHeight < tbodyTop + tableWrapperTop + rowHeight * this.data.length;
+      let isOverflow = window.innerHeight < tbodyTop + tableWrapperTop + rowHeight * this.data.size;
       if (isOverflow) {
         // tbodyDOM.style.height = `${maxBodyHeight}px`;
         this.maxBodyHeight = `${maxBodyHeight}px`;
@@ -90,6 +86,7 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit, Aft
       } else {
         this.maxBodyHeight = ``;
       }
+      this.changeDetector.detectChanges();
     }
   }
   ngOnDestroy() {

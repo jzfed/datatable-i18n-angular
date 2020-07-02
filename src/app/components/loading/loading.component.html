@@ -1,6 +1,9 @@
-<div [ngClass]="[prefix]">
+<div [ngClass]="prefix + 'loading-bar'">
   <app-icon
     type="bar"
     [size]="40"
   ></app-icon>
+</div>
+<div [ngClass]="prefix + 'loading-text'">
+  <ng-content></ng-content>
 </div>
