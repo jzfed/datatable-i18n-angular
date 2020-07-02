@@ -5,7 +5,8 @@ import { Map } from 'immutable';
 export const selectAddressData = (state: AppState) => state.$$datatable;
 
 export const selectAddressBook = createSelector(selectAddressData, (state: Map<string, any>) => {
-  console.log('selectAddressBook', state.get('$$address'));
+  console.log("selectAddressBook -> state.get('$$address') data type:", state.get('$$address').constructor.name);
+  console.log("selectAddressBook -> state.get('$$address')", state.get('$$address'));
   return state.get('$$address');
 });
 

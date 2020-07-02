@@ -1,56 +1,58 @@
-<div [ngClass]="[prefix]">
-
-  <ng-content select="[toolbar]"></ng-content>
-  <table class="striped">
-    <thead>
-      <tr>
-        <th>
-          <input
-            type="checkbox"
-            readOnly
-          />
-        </th>
-        <ng-container *ngFor="let thWidth of fixColumnWidth; index as i">
-          <th [width]="thWidth">{{tableColIndex[i][1]}}</th>
-        </ng-container>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngIf="data.length > 0; else elseTemplate">
-        <tr *ngFor="let trItem of data as list">
-
-          <td>
-            <input type="checkbox" />
-          </td>
-          <td
-            [width]="fixColumnWidth[i]"
-            *ngFor="let tdIndexName of tableColIndex; index as i"
-          >
-            <!-- {{trItem[tdIndexName[0]]}} -->
-            <app-input
-              *ngIf="trItem[tdIndexName[0]]"
-              [val]="trItem[tdIndexName[0]]"
-              [isInput]="false"
-            ></app-input>
-          </td>
-
-        </tr>
+<ng-content select="app-datatable-toolbar"></ng-content>
+<table class="striped">
+  <thead>
+    <tr>
+      <th>
+        <input
+          type="checkbox"
+          readOnly
+        />
+      </th>
+      <ng-container *ngFor="let thWidth of fixColumnWidth; index as i">
+        <th [width]="thWidth">{{tableColIndex[i][1]}}</th>
       </ng-container>
-      <ng-template #elseTemplate>
-        <tr>
-          <td
-            colSpan="7"
-            class="empty-data"
-          >
-            noData
-          </td>
-        </tr>
-      </ng-template>
+    </tr>
+  </thead>
+  <tbody
+    #tbodyRef
+    [style.display]="data.length > 0 ? 'block' : 'table'"
+    [style.height]="maxBodyHeight"
+  >
+    <ng-container *ngIf="data.length > 0; else elseTemplate">
+      <tr
+        #rowsRef
+        *ngFor="let trItem of data as list"
+      >
+
+        <td>
+          <input type="checkbox" />
+        </td>
+        <td
+          [width]="fixColumnWidth[i]"
+          *ngFor="let tdIndexName of tableColIndex; index as i"
+        >
+          <!-- {{trItem[tdIndexName[0]]}} -->
+          <app-input
+            *ngIf="trItem[tdIndexName[0]]"
+            [val]="trItem[tdIndexName[0]]"
+            [isInput]="false"
+          ></app-input>
+        </td>
+
+      </tr>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <tr>
+        <td
+          colSpan="7"
+          class="empty-data"
+        >
+          noData
+        </td>
+      </tr>
+    </ng-template>
 
 
 
-    </tbody>
-  </table>
-  <ng-content select="[loading]"></ng-content>
-
-</div>
+  </tbody>
+</table>

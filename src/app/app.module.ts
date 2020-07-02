@@ -22,7 +22,9 @@ import { AddressBookComponent } from './page/address-book/address-book.component
 import { DatatableContainerComponent } from './components/datatable-container/datatable-container.component';
 import { PageNotFoundComponent } from './page/page-not-found/page-not-found.component';
 import { DialogComponent } from './components/dialog/dialog.component';
-import { DatatableToolbarComponent } from './components/datatable-toolbar/datatable-toolbar.component'; // A
+import { DatatableToolbarComponent } from './components/datatable-toolbar/datatable-toolbar.component';
+import { ToolbarRightComponent } from './components/datatable-toolbar/toolbar-right.component';
+import { ToolbarLeftComponent } from './components/datatable-toolbar/toolbar-left.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { DatatableToolbarComponent } from './components/datatable-toolbar/datata
     DatatableContainerComponent,
     PageNotFoundComponent,
     DialogComponent,
-    DatatableToolbarComponent
+    DatatableToolbarComponent,
+    ToolbarRightComponent,
+    ToolbarLeftComponent
   ],
   imports: [
     BrowserModule,

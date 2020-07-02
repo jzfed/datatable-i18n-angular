@@ -2,6 +2,7 @@ import {
   Component,
   OnInit,
   ElementRef,
+  ViewEncapsulation,
   OnChanges,
   AfterViewChecked,
   AfterContentInit,
@@ -17,6 +18,7 @@ import * as AddressActions from '../../state/datatable.action';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { UsersAddressData } from 'src/app/common/ts/interface';
+import { List } from 'immutable';
 
 @Component({
   selector: 'app-datatable-container',
@@ -24,13 +26,15 @@ import { UsersAddressData } from 'src/app/common/ts/interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: [
     './datatable-container.component.scss'
-  ]
+  ],
+  encapsulation: ViewEncapsulation.None
 })
 export class DatatableContainerComponent implements OnInit {
   isInput: boolean;
   tableColIndex: string[][];
-  data: Observable<UsersAddressData>;
+  data: Observable<List<UsersAddressData>>;
   isLoading: Observable<boolean>;
+  prefix: string = `${CLASS_PREFIX}table-wrapper`;
 
   constructor(private el: ElementRef, private addressService: AddressService, private readonly store: Store) {}
 

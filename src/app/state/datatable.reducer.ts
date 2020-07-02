@@ -30,7 +30,7 @@ const addressBookReducer = createReducer(
         [
           '$$address'
         ],
-        (list) => (action as any).payload
+        (list) => fromJS((action as any).payload)
       );
   }),
   on(AddressBookActions.fetchDataFailure, (state) =>

@@ -1,43 +1,4 @@
 <div class="table-toolbar">
-  <div class="table-action">
-    <app-button
-      type="primary"
-      [round]="true"
-    >
-      Add
-    </app-button>
-    <app-button
-      type="primary"
-      [round]="true"
-    >
-      Edit
-    </app-button>
-    <app-button
-      [round]="true"
-      type="primary"
-    >
-      Update
-    </app-button>
-    <app-button
-      type="danger"
-      [round]="true"
-    >
-      Delete
-    </app-button>
-  </div>
-
-  <div class="language-switcher">
-    <app-button
-      type="default"
-      size="small"
-    >
-      English
-    </app-button>
-    <app-button
-      type="default"
-      size="small"
-    >
-      Chinese
-    </app-button>
-  </div>
+  <ng-content select="app-toolbar-left"></ng-content>
+  <ng-content select="app-toolbar-right"></ng-content>
 </div>

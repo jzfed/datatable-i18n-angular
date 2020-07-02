@@ -1,19 +1,60 @@
-<app-datatable
-  [fixColumnWidth]="['5%', '20%', '18%', '15%', '20%', '20%']"
-  [tableColIndex]="tableColIndex"
-  [data]=" data| async"
->
-  <ng-container toolbar>
-    <app-datatable-toolbar></app-datatable-toolbar>
-  </ng-container>
-
-  <ng-container loading>
-    <div
-      class="loading-mask"
-      [ngClass]="{'loading': isLoading |async}"
-    >
-      <app-loading></app-loading>
-    </div>
-  </ng-container>
-
-</app-datatable>
+<div [ngClass]="[prefix]">
+  <app-datatable
+    [fixColumnWidth]="['5%', '20%', '18%', '15%', '20%', '20%']"
+    [tableColIndex]="tableColIndex"
+    [source]="data | async"
+  >
+    <app-datatable-toolbar>
+      <app-toolbar-left>
+        <div class="table-action">
+          <app-button
+            type="primary"
+            [round]="true"
+          >
+            Add
+          </app-button>
+          <app-button
+            type="primary"
+            [round]="true"
+          >
+            Edit
+          </app-button>
+          <app-button
+            [round]="true"
+            type="primary"
+          >
+            Update
+          </app-button>
+          <app-button
+            type="danger"
+            [round]="true"
+          >
+            Delete
+          </app-button>
+        </div>
+      </app-toolbar-left>
+      <app-toolbar-right>
+        <div class="language-switcher">
+          <app-button
+            type="default"
+            size="small"
+          >
+            English
+          </app-button>
+          <app-button
+            type="default"
+            size="small"
+          >
+            Chinese
+          </app-button>
+        </div>
+      </app-toolbar-right>
+    </app-datatable-toolbar>
+  </app-datatable>
+  <div
+    class="loading-mask"
+    [ngClass]="{'loading': isLoading |async}"
+  >
+    <app-loading></app-loading>
+  </div>
+</div>

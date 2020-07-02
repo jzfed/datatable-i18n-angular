@@ -14,7 +14,7 @@ export class AddressBookEffects {
           .getAddress()
           .pipe(
             map((data) => AddressActions.fetchDataSuccess({ payload: data })),
-            tap((data) => console.log('response data:', data)),
+            tap((data) => console.log('AddressBookEffects -> addressService -> data', data)),
             catchError((err) => of(AddressActions.fetchDataFailure(err)))
           )
       )

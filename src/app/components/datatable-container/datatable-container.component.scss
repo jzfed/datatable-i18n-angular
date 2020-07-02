@@ -1,0 +1,45 @@
+@import '../../common/scss/common.scss';
+
+.#{$prefix}table-wrapper {
+  color: $darkGray;
+  font-size: $normalFontsize;
+  margin: 10px;
+  position: relative;
+
+  .loading-mask {
+    background-color: $bgColor;
+    opacity: 0.75;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    &.loading {
+      visibility: visible;
+    }
+    .jui-loading-bar {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+    }
+  }
+
+  .table-toolbar {
+    display: flex;
+    padding: 10px 10px;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    border: 1px solid $white;
+    background-color: $white;
+    box-shadow: 0 0 4px $borderGray;
+    .table-action {
+      button {
+        margin-right: 8px;
+      }
+    }
+
+    .language-switcher {
+    }
+  }
+}

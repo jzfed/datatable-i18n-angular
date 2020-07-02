@@ -10,7 +10,7 @@ export interface UserAddress {
 }
 
 export interface UsersAddressData {
-  address: UserAddress[];
+  address: List<UserAddress>;
 }
 
 export interface AppState {
