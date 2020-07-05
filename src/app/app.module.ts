@@ -25,6 +25,8 @@ import { DialogComponent } from './components/dialog/dialog.component';
 import { DatatableToolbarComponent } from './components/datatable-toolbar/datatable-toolbar.component';
 import { ToolbarRightComponent } from './components/datatable-toolbar/toolbar-right.component';
 import { ToolbarLeftComponent } from './components/datatable-toolbar/toolbar-left.component';
+import { DialogTitleComponent } from './components/dialog/dialog-title.component';
+import { DialogContentComponent } from './components/dialog/dialog-content.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { ToolbarLeftComponent } from './components/datatable-toolbar/toolbar-lef
     DialogComponent,
     DatatableToolbarComponent,
     ToolbarRightComponent,
-    ToolbarLeftComponent
+    ToolbarLeftComponent,
+    DialogTitleComponent,
+    DialogContentComponent
   ],
   imports: [
     BrowserModule,

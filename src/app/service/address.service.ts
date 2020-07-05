@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { dataIndex } from '../common/ts/constant';
 import { Observable, throwError } from 'rxjs';
 import { API } from '../common/ts/constant';
-import { AddressState, UsersAddressData } from '../common/ts/interface';
+import { AddressState, UsersAddressData } from '../state/datatable.model';
 
 @Injectable({
   providedIn: 'root'

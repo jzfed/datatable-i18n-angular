@@ -17,7 +17,7 @@ import * as fromAddressSelector from '../../state/datatable.selector';
 import * as AddressActions from '../../state/datatable.action';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { UsersAddressData } from 'src/app/common/ts/interface';
+import { UsersAddressData } from 'src/app/state/datatable.model';
 import { List } from 'immutable';
 
 @Component({
@@ -32,7 +32,7 @@ import { List } from 'immutable';
 export class DatatableContainerComponent implements OnInit {
   isInput: boolean;
   tableColIndex: string[][];
-  data: Observable<List<UsersAddressData>>;
+  data: Observable<Array<UsersAddressData>>;
   isLoading: Observable<boolean>;
   prefix: string = `${CLASS_PREFIX}table-wrapper`;
 

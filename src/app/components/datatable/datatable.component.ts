@@ -19,7 +19,7 @@ import {
 } from '@angular/core';
 import { CLASS_PREFIX } from '../../common/ts/constant';
 import { Observable, Subscription, fromEvent } from 'rxjs';
-import { UsersAddressData, UserAddress } from 'src/app/common/ts/interface';
+import { UsersAddressData, UserAddress } from 'src/app/state/datatable.model';
 import { debounceTime } from 'rxjs/operators';
 import { List } from 'immutable';
 
@@ -35,7 +35,7 @@ import { List } from 'immutable';
 export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit, AfterViewChecked, OnChanges {
   @Input() fixColumnWidth: Array<string>;
   @Input() tableColIndex;
-  @Input() data: List<UserAddress>;
+  @Input() data: Array<UserAddress>;
   @ViewChild('tbodyRef', { static: false })
   tbodyRef: ElementRef;
   @ViewChildren('rowsRef') rowsRef: QueryList<ElementRef>;
@@ -74,10 +74,10 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit, Aft
     const { top: tableWrapperTop }: DOMRect = tableWrapperDOM.getBoundingClientRect();
     const { top: tbodyTop } = this.tbodyDOM.getBoundingClientRect();
 
-    if (this.data.size > 0) {
+    if (this.data.length > 0) {
       const rowHeight = this.rowsRef.first.nativeElement.offsetHeight;
       let maxBodyHeight: number = Math.floor(window.innerHeight - tableWrapperTop - tbodyTop - 2);
-      let isOverflow = window.innerHeight < tbodyTop + tableWrapperTop + rowHeight * this.data.size;
+      let isOverflow = window.innerHeight < tbodyTop + tableWrapperTop + rowHeight * this.data.length;
       if (isOverflow) {
         // tbodyDOM.style.height = `${maxBodyHeight}px`;
         this.maxBodyHeight = `${maxBodyHeight}px`;

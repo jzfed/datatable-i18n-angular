@@ -14,10 +14,10 @@
   </thead>
   <tbody
     #tbodyRef
-    [style.display]="data.size > 0 ? 'block' : 'table'"
+    [style.display]="data.length > 0 ? 'block' : 'table'"
     [style.height]="maxBodyHeight"
   >
-    <ng-container *ngIf="data.size > 0; else elseTemplate">
+    <ng-container *ngIf="data.length > 0; else elseTemplate">
       <tr
         #rowsRef
         *ngFor="let trItem of data as list"
@@ -30,10 +30,10 @@
           [width]="fixColumnWidth[i]"
           *ngFor="let tdIndexName of tableColIndex; index as i"
         >
-          <!-- {{trItem.get(tdIndexName[0])}} -->
+          <!-- {{trItem[tdIndexName[0])}} -->
           <app-input
-            *ngIf="trItem.get(tdIndexName[0])"
-            [val]="trItem.get(tdIndexName[0])"
+            *ngIf="trItem[tdIndexName[0]]"
+            [val]="trItem[tdIndexName[0]]"
             [isInput]="false"
           ></app-input>
         </td>

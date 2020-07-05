@@ -1,1 +1,11 @@
-<p>dialog works!</p>
+<div
+  [ngClass]="[prefix + 'dialog-mask', isOpen ? 'open' : '' ]"
+  (click)="onDialogMaskClick($event)"
+></div>
+<div [ngClass]="[prefix + 'dialog-wrapper', isOpen ? 'open' : '' ]">
+  <ng-content select="app-dialog-title"></ng-content>
+  <ng-content select="app-dialog-content"></ng-content>
+  <div class="dialog action">
+
+  </div>
+</div>

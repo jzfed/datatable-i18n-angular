@@ -15,5 +15,29 @@
   font-size: $bigFontsize;
   top: 55%;
   left: 50%;
-  transform: translate(-50%, 200%);
+  transform: translate(-50%, 150%);
+  .dot-text {
+    width: 1em;
+    display: inline-block;
+    text-align: left;
+    margin-left: 0.1em;
+    .dot-animation {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+      animation: extend 2s steps(3, end) infinite;
+      &:before {
+        content: "...";
+      }
+    }
+  }
+}
+
+@keyframes extend {
+  0% {
+    width: .25em;
+  }
+  100% {
+    width: 1em;
+  }
 }

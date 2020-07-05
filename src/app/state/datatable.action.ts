@@ -1,5 +1,5 @@
 import { createAction, Action, props } from '@ngrx/store';
-import { AddressState, UsersAddressData } from '../common/ts/interface';
+import { AddressState, UsersAddressData } from './datatable.model';
 
 export const DATATABLE_ADD = '[DataTable] ADD';
 export const DATATABLE_UPDATE = '[DataTable] UPDATE';

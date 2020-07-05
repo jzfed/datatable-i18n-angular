@@ -1,7 +1,7 @@
 import { createReducer, Action, on } from '@ngrx/store';
 import * as AddressBookActions from './datatable.action';
 import { fromJS, List, Map } from 'immutable';
-import { AddressState, UsersAddressData } from '../common/ts/interface';
+import { AddressState, UsersAddressData } from './datatable.model';
 
 export const initialState: AddressState = fromJS({
   $$address: [],
