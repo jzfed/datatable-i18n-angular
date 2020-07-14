@@ -12,3 +12,33 @@ body {
 .app {
   padding: 20px;
 }
+
+.form-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.form-error {
+  color: $dangerColor;
+}
+.ng-valid[required],
+.ng-valid.required {
+  border: 1px solid #42a948; /* green */
+}
+.ng-invalid:not(form) {
+  border: 1px solid $dangerColor; /* red */
+}
+.form-item {
+  // display: flex;
+  // justify-content: center;
+  label {
+    display: inline-block;
+    width: 80px;
+    text-align: right;
+    padding-right: 5px;
+  }
+  margin-bottom: 15px;
+}

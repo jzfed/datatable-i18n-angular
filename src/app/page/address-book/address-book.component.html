@@ -2,21 +2,127 @@
 <app-dialog [isOpen]="isOpen">
   <app-dialog-title>Test Title</app-dialog-title>
   <app-dialog-content>
-    <form action="#">
-      <label for="name">
-        Name: <input
+    <form action="#" class="form-container" [formGroup]="addNewAddressForm" (ngSubmit)="onSubmit()">
+
+      <div *ngIf="addNewAddressForm.errors?.identityRevealed && (addNewAddressForm.touched || addNewAddressForm.dirty)" class="cross-validation-error-message form-item form-error">
+        Name cannot match location.
+      </div>
+
+      <div class="form-item">
+        <label for="name">
+          Name:
+        </label>
+        <input
+            type="text"
+            name="name"
+            id="name"
+            required
+            formControlName="name"
+          >
+      </div>
+
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="form-item form-error">
+        <div *ngIf="name.errors.required">
+          Name is required.
+        </div>
+        <div *ngIf="name.errors.minlength">
+          Name must be at least 5 characters long.
+        </div>
+        <div *ngIf="name.errors.forbiddenName">
+          Name cannot be jason.
+        </div>
+      </div>
+
+      <!-- <div class="form-item">
+        <p>Value: {{addNewAddressForm.get('name').value}}</p>
+      </div> -->
+      <div class="form-item">
+        <label for="location">
+          Location:
+        </label><input
+        type="text"
+        name="location"
+        id="location"
+        formControlName="location"
+      >
+      </div>
+      <div class="form-item">
+        <label for="office">
+          office:
+        </label><input
+        type="text"
+        name="office"
+        id="office"
+        formControlName="office"
+      >
+      </div>
+      <div class="formgroup" formGroupName="phone">
+        <h3>Phone:</h3>
+        <div class="form-item">
+          <label for="officePhone">
+            officePhone:
+          </label><input
           type="text"
-          name="name"
-          id="name"
+          name="officePhone"
+          id="officePhone"
+          formControlName="officePhone"
         >
-      </label>
-      <label for="name">
-        Name: <input
+        </div>
+        <div class="form-item">
+          <label for="officePhone">
+            cellPhone:
+          </label><input
           type="text"
-          name="name"
-          id="name"
+          name="cellPhone"
+          id="officePhone"
+          formControlName="cellPhone"
         >
-      </label>
+        </div>
+      </div>
+      <div class="formgroup" formGroupName="phone" formArrayName="aliases">
+        <h3>Aliases:</h3>
+        <app-button
+        [round]="true"
+        (click)="addAlias()"
+      >
+        Add Alias
+      </app-button>
+        <div class="form-item" *ngFor="let alias of aliases.controls; let i=index">
+          <label for="officePhone">
+            {{i}}:
+          </label><input
+          type="text"
+          name="officePhone"
+          id="officePhone"
+          [formControlName]="i"
+        >
+        </div>
+
+      </div>
+      <div class="form-action">
+        <app-button
+        type="primary"
+        [submit]="true"
+        [round]="true"
+        [disabled]="!addNewAddressForm.valid"
+      >
+        Submit
+      </app-button>
+      <app-button
+        [round]="true"
+        (click)="patchValue()"
+      >
+        Cancel
+      </app-button>
+      </div>
+      <div>
+        <pre>
+          {{addNewAddressForm.value | json}}
+        </pre>
+      </div>
+      <p>
+        Form Status: {{ addNewAddressForm.status }}
+      </p>
     </form>
   </app-dialog-content>
 </app-dialog>

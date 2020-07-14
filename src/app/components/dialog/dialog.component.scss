@@ -16,10 +16,12 @@
     display: flex;
     padding: 10px 10px;
     justify-content: space-between;
-    margin-bottom: 15px;
     border: 1px solid $white;
     background-color: $white;
     box-shadow: 0 0 4px $borderGray;
+  }
+  .dialog-content {
+    background-color: $lightGray;
   }
 }
 .#{$prefix}dialog-mask {

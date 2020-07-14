@@ -14,6 +14,8 @@ export class ButtonComponent implements OnInit {
   @Input() highlight: boolean;
   @Input() round: boolean;
   @Input() loading: boolean;
+  @Input() disabled: boolean = false;
+  @Input() submit: boolean = false;
   prefix: string = `${CLASS_PREFIX}button`;
   highlightClass: string;
   roundClass: string;
