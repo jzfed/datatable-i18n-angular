@@ -1,9 +1,52 @@
 <app-datatable-container>
+  <div class="table-action">
+    <app-button
+      type="primary"
+      [round]="true"
+      (click)="addNewAddress()"
+    >
+      Add
+    </app-button>
+    <app-button
+      type="primary"
+      [round]="true"
+    >
+      Edit
+    </app-button>
+    <app-button
+      [round]="true"
+      type="primary"
+    >
+      Update
+    </app-button>
+    <app-button
+      type="danger"
+      [round]="true"
+    >
+      Delete
+    </app-button>
+  </div>
+
+  <div class="language-switcher">
+    <app-button
+      type="default"
+      size="small"
+    >
+      English
+    </app-button>
+    <app-button
+      type="default"
+      size="small"
+    >
+      Chinese
+    </app-button>
+  </div>
 
 </app-datatable-container>
 <app-dialog
   [isOpen]="isOpen"
   [title]="'Add New Address'"
+  (onClose)="isOpen = $event"
 >
   <app-dialog-content>
     <form

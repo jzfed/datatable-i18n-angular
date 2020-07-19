@@ -1,14 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder, Validators, FormArray, AbstractControl, ValidatorFn, ValidationErrors} from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormArray,
+  AbstractControl,
+  ValidatorFn,
+  ValidationErrors,
+} from '@angular/forms';
 
 @Component({
   templateUrl: './address-book.component.html',
   styleUrls: [
-    './address-book.component.scss'
-  ]
+    './address-book.component.scss',
+  ],
 })
 export class AddressBookComponent implements OnInit {
-  isOpen: boolean;
+  isOpen: boolean = false;
   debugInfo: boolean = false;
   // addNewAddressForm = new FormGroup({
   //   name: new FormControl(''),
@@ -19,68 +28,91 @@ export class AddressBookComponent implements OnInit {
   //     cellPhone: new FormControl(''),
   //   })
   // });
-  addNewAddressForm = this.fb.group({
-    name: ['', [Validators.required, Validators.minLength(5), forbiddenNameValidator(/jason/i)] ],
-    location: ['location'],
-    office: [''],
-    phone: this.fb.group({
-      officePhone: ['', Validators.minLength(8)],
-      cellPhone: [''],
-    }),
-    aliases: this.fb.array([
-      this.fb.control('')
-    ], { updateOn: 'blur'})
-  }, { validators: identityRevealedValidator });
+  addNewAddressForm = this.fb.group(
+    {
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          forbiddenNameValidator(/jason/i),
+        ],
+      ],
+      location: [
+        'location',
+      ],
+      office: [
+        '',
+      ],
+      phone: this.fb.group({
+        officePhone: [
+          '',
+          Validators.minLength(8),
+        ],
+        cellPhone: [
+          '',
+        ],
+      }),
+      aliases: this.fb.array(
+        [
+          this.fb.control(''),
+        ],
+        { updateOn: 'blur' }
+      ),
+    },
+    { validators: identityRevealedValidator }
+  );
   constructor(private fb: FormBuilder) {}
 
-  get name(){
+  get name() {
     return this.addNewAddressForm.get('name');
   }
 
-  get location(){
+  get location() {
     return this.addNewAddressForm.get('location');
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  addNewAddress() {
     this.isOpen = true;
   }
 
-  setNameValueJason(){
+  setNameValueJason() {
     this.addNewAddressForm.controls['name'].setValue('Jason');
   }
 
-  patchValue(){
+  patchValue() {
     this.addNewAddressForm.patchValue({
       name: 'Jason Zhang',
       phone: {
-        cellPhone: '1115566678'
-      }
-    })
+        cellPhone: '1115566678',
+      },
+    });
   }
 
-  get aliases(){
+  get aliases() {
     return this.addNewAddressForm.get('aliases') as FormArray;
   }
 
-  addAlias(){
+  addAlias() {
     this.aliases.push(this.fb.control(''));
   }
 
-  onSubmit(){
+  onSubmit() {
     console.log('form value', this.addNewAddressForm.value);
   }
 }
 
-
-export const forbiddenNameValidator = (reg: RegExp):ValidatorFn => {
-  return (control: AbstractControl): {[key: string]: any} | null  => {
+export const forbiddenNameValidator = (reg: RegExp): ValidatorFn => {
+  return (control: AbstractControl): { [key: string]: any } | null => {
     const forbidden = reg.test(control.value);
-    return forbidden ? {'forbiddenName': { value: control.value }} : null;
-  }
-}
+    return forbidden ? { forbiddenName: { value: control.value } } : null;
+  };
+};
 
 export const identityRevealedValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
   const name = control.get('name');
   const location = control.get('location');
-  return name && location && location.value === name.value ? { 'identityRevealed': true } : null;
-}
+  return name && location && location.value === name.value ? { identityRevealed: true } : null;
+};
