@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-datatable-toolbar',
-  templateUrl: './datatable-toolbar.component.html',
-  styleUrls: [
-    './datatable-toolbar.component.scss'
-  ]
+  template: `<div class="table-toolbar">
+    <ng-content></ng-content>
+  </div>`,
 })
 export class DatatableToolbarComponent implements OnInit {
   constructor() {}

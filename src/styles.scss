@@ -20,17 +20,16 @@ body {
   justify-content: center;
   align-items: center;
   padding: 20px;
+  input {
+    font-size: $normalFontsize;
+    box-sizing: border-box;
+    border: 1px solid $borderGray;
+    padding: 6px 8px;
+    outline: 0;
+    transition: all ease-in-out .2s;
+  }
 }
-.form-error {
-  color: $dangerColor;
-}
-.ng-valid[required],
-.ng-valid.required {
-  border: 1px solid #42a948; /* green */
-}
-.ng-invalid:not(form) {
-  border: 1px solid $dangerColor; /* red */
-}
+
 .form-item {
   // display: flex;
   // justify-content: center;
@@ -40,5 +39,22 @@ body {
     text-align: right;
     padding-right: 5px;
   }
-  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.form-error {
+  color: $dangerColor;
+  padding-left: 80px;
+  text-align: left;
+  margin-top: 5px;
+}
+
+.ng-valid[required],
+.ng-valid.required {
+  border: 1px solid #42a948; /* green */
+}
+.ng-invalid:not(form) {
+  &.ng-touched {
+    border: 1px solid $dangerColor; /* red */
+  }
 }

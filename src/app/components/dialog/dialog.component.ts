@@ -15,7 +15,6 @@ import {
 } from '@angular/core';
 import { CLASS_PREFIX } from 'src/app/common/ts/constant';
 import { DialogContentComponent } from './dialog-content.component';
-import { DialogTitleComponent } from './dialog-title.component';
 
 @Component({
   selector: 'app-dialog',
@@ -27,8 +26,8 @@ import { DialogTitleComponent } from './dialog-title.component';
 })
 export class DialogComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() isOpen: boolean;
-  @ContentChild(DialogTitleComponent) dialogTitle: DialogTitleComponent;
-  @ContentChild(DialogContentComponent) dialogContent: DialogTitleComponent;
+  @Input() title: string;
+  @ContentChild(DialogContentComponent) dialogContent: DialogContentComponent;
   prefix: string = `${CLASS_PREFIX}`;
   constructor(private el: ElementRef, private appRef: ApplicationRef) {}
 
@@ -47,11 +46,14 @@ export class DialogComponent implements OnInit, OnDestroy, AfterViewInit {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
     this.dialogContent;
-    console.log('DialogComponent -> ngAfterViewInit -> this.dialogTitle', this.dialogTitle.el.nativeElement.innerHTML);
     console.log(
       'DialogComponent -> ngAfterViewInit -> this.dialogContent',
       this.dialogContent.el.nativeElement.innerHTML
     );
+  }
+
+  close(){
+    this.isOpen = false;
   }
 
   onDialogMaskClick(event: MouseEvent) {}

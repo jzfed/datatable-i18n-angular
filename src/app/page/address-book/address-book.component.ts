@@ -1,19 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, FormArray, AbstractControl, ValidatorFn, ValidationErrors} from '@angular/forms';
 
-export const forbiddenNameValidator = (reg: RegExp):ValidatorFn => {
-  return (control: AbstractControl): {[key: string]: any} | null  => {
-    const forbidden = reg.test(control.value);
-    return forbidden ? {'forbiddenName': { value: control.value }} : null;
-  }
-}
-
-export const identityRevealedValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
-  const name = control.get('name');
-  const location = control.get('location');
-  return name && location && location.value === name.value ? { 'identityRevealed': true } : null;
-}
-
 @Component({
   templateUrl: './address-book.component.html',
   styleUrls: [
@@ -22,6 +9,7 @@ export const identityRevealedValidator: ValidatorFn = (control: FormGroup): Vali
 })
 export class AddressBookComponent implements OnInit {
   isOpen: boolean;
+  debugInfo: boolean = false;
   // addNewAddressForm = new FormGroup({
   //   name: new FormControl(''),
   //   location: new FormControl('location'),
@@ -81,4 +69,18 @@ export class AddressBookComponent implements OnInit {
   onSubmit(){
     console.log('form value', this.addNewAddressForm.value);
   }
+}
+
+
+export const forbiddenNameValidator = (reg: RegExp):ValidatorFn => {
+  return (control: AbstractControl): {[key: string]: any} | null  => {
+    const forbidden = reg.test(control.value);
+    return forbidden ? {'forbiddenName': { value: control.value }} : null;
+  }
+}
+
+export const identityRevealedValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+  const name = control.get('name');
+  const location = control.get('location');
+  return name && location && location.value === name.value ? { 'identityRevealed': true } : null;
 }

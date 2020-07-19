@@ -15,11 +15,11 @@ import {
   OnDestroy,
   ViewChild,
   ViewChildren,
-  QueryList
+  QueryList,
 } from '@angular/core';
 import { CLASS_PREFIX } from '../../common/ts/constant';
 import { Observable, Subscription, fromEvent } from 'rxjs';
-import { UsersAddressData, UserAddress } from 'src/app/state/datatable.model';
+// import { UsersAddressData, UserAddress } from 'src/app/state/datatable.model';
 import { debounceTime } from 'rxjs/operators';
 import { List } from 'immutable';
 
@@ -28,14 +28,14 @@ import { List } from 'immutable';
   templateUrl: './datatable.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: [
-    './datatable.component.scss'
+    './datatable.component.scss',
   ],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit, AfterViewChecked, OnChanges {
   @Input() fixColumnWidth: Array<string>;
   @Input() tableColIndex;
-  @Input() data: Array<UserAddress>;
+  @Input() data: Array<any>;
   @ViewChild('tbodyRef', { static: false })
   tbodyRef: ElementRef;
   @ViewChildren('rowsRef') rowsRef: QueryList<ElementRef>;

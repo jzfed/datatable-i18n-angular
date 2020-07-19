@@ -9,15 +9,15 @@ import {
   AfterViewInit,
   AfterContentChecked,
   DoCheck,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
 } from '@angular/core';
-import { CLASS_PREFIX } from '../../common/ts/constant';
-import { AddressService } from 'src/app/service/address.service';
-import * as fromAddressSelector from '../../state/datatable.selector';
-import * as AddressActions from '../../state/datatable.action';
+import { CLASS_PREFIX } from '../../../common/ts/constant';
+import { AddressService } from 'src/app/page/address-book/address-book.service';
+import * as fromAddressSelector from '../state/datatable.selector';
+import * as AddressActions from '../state/datatable.action';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { UsersAddressData } from 'src/app/state/datatable.model';
+import { UsersAddressData } from '../state/datatable.model';
 import { List } from 'immutable';
 
 @Component({
@@ -25,9 +25,9 @@ import { List } from 'immutable';
   templateUrl: './datatable-container.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: [
-    './datatable-container.component.scss'
+    './datatable-container.component.scss',
   ],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class DatatableContainerComponent implements OnInit {
   isInput: boolean;

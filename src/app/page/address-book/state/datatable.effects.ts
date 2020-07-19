@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { AddressService } from '../service/address.service';
+import { AddressService } from '../address-book.service';
 import * as AddressActions from '../state/datatable.action';
 import { mergeMap, switchMap, map, catchError, tap, timeout } from 'rxjs/operators';
 import { of, from, EMPTY } from 'rxjs';
