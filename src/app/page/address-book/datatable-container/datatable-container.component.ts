@@ -14,7 +14,7 @@ import {
 import { CLASS_PREFIX } from '../../../common/ts/constant';
 import { AddressService } from 'src/app/page/address-book/address-book.service';
 import * as fromAddressSelector from '../state/datatable.selector';
-import * as AddressActions from '../state/datatable.action';
+import * as fromAddressActions from '../state/datatable.action';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { UsersAddressData } from '../state/datatable.model';
@@ -44,7 +44,7 @@ export class DatatableContainerComponent implements OnInit {
     // this.isLoading.subscribe((data) => console.log('DatatableComponent get isLoading:', data));
     this.data = this.store.pipe(select(fromAddressSelector.selectAddressBook));
     // this.$$datatable.subscribe((data) => console.log('DatatableComponent get data:', data));
-    this.store.dispatch(AddressActions.fetchAddressData());
+    this.store.dispatch(fromAddressActions.fetchAddressData());
   }
 
   // ngAfterViewChecked() {

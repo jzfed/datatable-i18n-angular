@@ -9,7 +9,10 @@ import {
   ValidatorFn,
   ValidationErrors,
 } from '@angular/forms';
-
+import { Store, select } from '@ngrx/store';
+import * as fromAddressActions from './state/datatable.action';
+import * as fromAddressSelector from './state/datatable.selector';
+import { Observable } from 'rxjs';
 @Component({
   templateUrl: './address-book.component.html',
   styleUrls: [
@@ -17,7 +20,7 @@ import {
   ],
 })
 export class AddressBookComponent implements OnInit {
-  isOpen: boolean = false;
+  isOpen: Observable<boolean>;
   debugInfo: boolean = false;
   // addNewAddressForm = new FormGroup({
   //   name: new FormControl(''),
@@ -39,10 +42,16 @@ export class AddressBookComponent implements OnInit {
         ],
       ],
       location: [
-        'location',
+        '',
+        [
+          Validators.required,
+        ],
       ],
       office: [
         '',
+        [
+          Validators.required,
+        ],
       ],
       phone: this.fb.group({
         officePhone: [
@@ -51,6 +60,7 @@ export class AddressBookComponent implements OnInit {
         ],
         cellPhone: [
           '',
+          Validators.minLength(8),
         ],
       }),
       aliases: this.fb.array(
@@ -62,7 +72,11 @@ export class AddressBookComponent implements OnInit {
     },
     { validators: identityRevealedValidator }
   );
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private readonly store: Store) {}
+
+  ngOnInit(): void {
+    this.isOpen = this.store.pipe(select(fromAddressSelector.selectDialogStatus));
+  }
 
   get name() {
     return this.addNewAddressForm.get('name');
@@ -72,34 +86,51 @@ export class AddressBookComponent implements OnInit {
     return this.addNewAddressForm.get('location');
   }
 
-  ngOnInit(): void {}
-
-  addNewAddress() {
-    this.isOpen = true;
+  get office() {
+    return this.addNewAddressForm.get('office');
   }
 
-  setNameValueJason() {
-    this.addNewAddressForm.controls['name'].setValue('Jason');
+  get officePhone() {
+    return this.addNewAddressForm.get('phone').get('officePhone');
   }
 
-  patchValue() {
-    this.addNewAddressForm.patchValue({
-      name: 'Jason Zhang',
-      phone: {
-        cellPhone: '1115566678',
-      },
-    });
+  get cellPhone() {
+    return this.addNewAddressForm.get('phone').get('cellPhone');
   }
 
   get aliases() {
     return this.addNewAddressForm.get('aliases') as FormArray;
   }
 
+  addNewAddress() {
+    this.store.dispatch(fromAddressActions.addDialogOpen());
+  }
+
+  onDialogClose() {
+    this.store.dispatch(fromAddressActions.addDialogClose());
+  }
+  // setNameValueJason() {
+  //   this.addNewAddressForm.controls['name'].setValue('Jason');
+  // }
+
+  // patchValue() {
+  //   this.addNewAddressForm.patchValue({
+  //     name: 'Jason Zhang',
+  //     phone: {
+  //       cellPhone: '1115566678',
+  //     },
+  //   });
+  // }
+
   addAlias() {
     this.aliases.push(this.fb.control(''));
   }
 
   onSubmit() {
+    this.store.dispatch(fromAddressActions.addUserAddress({ payload: this.addNewAddressForm.value }));
+    this.isOpen.subscribe((status) => {
+      if (status === false) this.addNewAddressForm.reset();
+    });
     console.log('form value', this.addNewAddressForm.value);
   }
 }
@@ -114,5 +145,5 @@ export const forbiddenNameValidator = (reg: RegExp): ValidatorFn => {
 export const identityRevealedValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
   const name = control.get('name');
   const location = control.get('location');
-  return name && location && location.value === name.value ? { identityRevealed: true } : null;
+  return name && location && name.valid && location.value === name.value ? { identityRevealed: true } : null;
 };

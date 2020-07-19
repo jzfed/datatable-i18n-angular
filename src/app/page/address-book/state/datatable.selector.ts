@@ -11,8 +11,12 @@ export const selectAddressBook = createSelector(selectAddressData, (state: Map<s
   return state.get('$$address').toJS();
 });
 
-export const selectLoadingStatus = createSelector(selectAddressData, (state: Map<string, any>) => {
+export const selectLoadingStatus = createSelector(selectAddressData, (state: Map<string, boolean>) => {
   console.log("selectLoadingStatus -> state.get('isLoading') data type:", state.get('isLoading').constructor.name);
   console.log("selectLoadingStatus -> state.get('isLoading')", state.get('isLoading'));
   return state.get('isLoading');
+});
+
+export const selectDialogStatus = createSelector(selectAddressData, (state: Map<string, boolean>) => {
+  return state.get('isAddAddressDialogOpen');
 });

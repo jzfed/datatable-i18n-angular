@@ -20,4 +20,5 @@ export interface AppState {
 export interface AddressState extends Map<string, any> {
   $$address: List<UserAddress>;
   isLoading: boolean;
+  isAddAddressDialogOpen: boolean;
 }

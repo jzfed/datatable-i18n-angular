@@ -1,44 +1,61 @@
 import { createReducer, Action, on } from '@ngrx/store';
-import * as AddressBookActions from './datatable.action';
+import * as fromAddressActions from './datatable.action';
 import { fromJS, List, Map } from 'immutable';
 import { AddressState, UsersAddressData } from './datatable.model';
 
 export const initialState: AddressState = fromJS({
   $$address: [],
-  isLoading: false
+  isLoading: false,
+  isAddAddressDialogOpen: false,
 });
 
 const addressBookReducer = createReducer(
   initialState,
-  on(AddressBookActions.fetchAddressData, (state) => {
+  on(fromAddressActions.fetchAddressData, (state) => {
     return state.setIn(
       [
-        'isLoading'
+        'isLoading',
       ],
       true
     );
   }),
-  on(AddressBookActions.fetchDataSuccess, (state, action: Action) => {
+  on(fromAddressActions.fetchDataSuccess, (state, action: Action) => {
     return state
       .setIn(
         [
-          'isLoading'
+          'isLoading',
         ],
         false
       )
       .updateIn(
         [
-          '$$address'
+          '$$address',
         ],
         (list) => fromJS((action as any).payload)
       );
   }),
-  on(AddressBookActions.fetchDataFailure, (state) =>
+  on(fromAddressActions.fetchDataFailure, (state) =>
     state.setIn(
       [
-        'isLoading'
+        'isLoading',
       ],
       false
+    )
+  ),
+  on(fromAddressActions.addUserAddressSuccess, fromAddressActions.addDialogClose, (state) =>
+    state.setIn(
+      [
+        'isAddAddressDialogOpen',
+      ],
+      false
+    )
+  ),
+  on(fromAddressActions.addDialogOpen, (state) =>
+    state.setIn(
+      [
+        'isAddAddressDialogOpen',
+      ],
+      true
     )
   )
 );

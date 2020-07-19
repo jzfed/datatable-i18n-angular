@@ -18,4 +18,8 @@ export class AddressService {
   getAddress() {
     return this.http.get(API.address.get);
   }
+
+  addNewAddress(payload) {
+    return this.http.post(API.address.post, payload);
+  }
 }
