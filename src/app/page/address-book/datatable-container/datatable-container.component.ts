@@ -31,7 +31,7 @@ import { DatatableComponent } from 'src/app/components/datatable/datatable.compo
   ],
   encapsulation: ViewEncapsulation.None,
 })
-export class DatatableContainerComponent implements OnInit, AfterViewInit {
+export class DatatableContainerComponent implements OnInit, AfterViewInit, AfterViewChecked, OnChanges {
   isInput: boolean;
   tableColIndex: string[][];
   data: Observable<Array<UsersAddressData>>;
@@ -53,11 +53,17 @@ export class DatatableContainerComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     console.log('table child', this.table);
   }
-  // ngAfterViewChecked() {
-  //   console.log(
-  //     'height',
-  //     getComputedStyle((this.el.nativeElement.firstElementChild as HTMLDivElement).querySelector('table')).height
-  //   );
-  //   console.dir(this.el.nativeElement.firstElementChild);
-  // }
+
+  selectItem(arr) {
+    console.log(arr);
+  }
+
+  ngOnChanges() {}
+
+  ngAfterViewChecked() {
+    // console.log(
+    //   'DatatableContainerComponent height',
+    //   getComputedStyle((this.el.nativeElement.firstElementChild as HTMLDivElement).querySelector('table')).height
+    // );
+  }
 }

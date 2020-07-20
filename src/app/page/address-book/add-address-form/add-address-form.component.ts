@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   FormControl,
   FormGroup,
@@ -12,7 +13,8 @@ import {
 } from '@angular/forms';
 import * as fromAddressSelector from '../state/datatable.selector';
 import * as fromAddressActions from '../state/datatable.action';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-address-form',
@@ -21,9 +23,10 @@ import { Observable } from 'rxjs';
     './add-address-form.component.scss',
   ],
 })
-export class AddAddressFormComponent implements OnInit {
+export class AddAddressFormComponent implements OnInit, OnDestroy {
   debugInfo: boolean = false;
   isOpen: Observable<boolean>;
+  destroyed$ = new Subject<boolean>();
   @Output() onCancel = new EventEmitter();
   @Output() onSubmitSuccess = new EventEmitter();
   // addNewAddressForm = new FormGroup({
@@ -77,10 +80,20 @@ export class AddAddressFormComponent implements OnInit {
     { validators: identityRevealedValidator }
   );
 
-  constructor(private fb: FormBuilder, private readonly store: Store) {}
+  constructor(private fb: FormBuilder, private readonly store: Store, private action$: Actions) {}
 
   ngOnInit(): void {
     this.isOpen = this.store.pipe(select(fromAddressSelector.selectDialogStatus));
+    this.action$
+      .pipe(
+        ofType(fromAddressActions.addUserAddressSuccess),
+        takeUntil(this.destroyed$),
+        tap(() => {
+          this.addNewAddressForm.reset();
+          this.onSubmitSuccess.emit();
+        })
+      )
+      .subscribe();
   }
 
   get name() {
@@ -113,20 +126,18 @@ export class AddAddressFormComponent implements OnInit {
 
   onSubmit() {
     this.store.dispatch(fromAddressActions.addUserAddress({ payload: this.addNewAddressForm.value }));
-    this.isOpen.subscribe((status) => {
-      if (status === false) {
-        this.addNewAddressForm.reset();
-        this.onSubmitSuccess.emit(null);
-        // this.tableContainer.table.scrollToBottom();
-      }
-    });
     console.log('form value', this.addNewAddressForm.value);
   }
 
   handlerCancel() {
+    this.addNewAddressForm.reset();
     this.onCancel.emit(null);
   }
 
+  ngOnDestroy() {
+    this.destroyed$.next(true);
+    this.destroyed$.complete();
+  }
   // setNameValueJason() {
   //   this.addNewAddressForm.controls['name'].setValue('Jason');
   // }

@@ -50,13 +50,13 @@
 <app-dialog
   [isOpen]="isOpen | async"
   [title]="'Add New Address'"
-  (onClose)="onDialogClose()"
+  (onClose)="handleDialogClose()"
   #dialog
 >
   <app-dialog-content>
     <app-add-address-form
       (onCancel)="dialog.close()"
-      (onSubmitSuccess)="datatableContainer.table.scrollToBottom()"
+      (onSubmitSuccess)="handleAddSuccess()"
     ></app-add-address-form>
   </app-dialog-content>
 </app-dialog>

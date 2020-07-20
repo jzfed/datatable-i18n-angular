@@ -5,6 +5,7 @@
         <input
           type="checkbox"
           readOnly
+          (change)="selectAll($event)"
         />
       </th>
       <ng-container *ngFor="let thWidth of fixColumnWidth; index as i">
@@ -15,20 +16,25 @@
   <tbody
     #tbodyRef
     [style.display]="data.length > 0 ? 'block' : 'table'"
-    [style.height]="maxBodyHeight"
+    [style.height]="maxBodyHeight === 0 ? 'auto' : maxBodyHeight + 'px'"
   >
     <ng-container *ngIf="data.length > 0; else elseTemplate">
       <tr
         #rowsRef
-        *ngFor="let trItem of data as list"
+        *ngFor="let trItem of data as list; index as rowIndex"
+        [ngClass]="{selected: selectedRowItems.has(rowIndex)}"
       >
 
         <td>
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            [checked]="selectedRowItems.has(rowIndex)"
+            (change)="selectRow($event, rowIndex)"
+          />
         </td>
         <td
-          [width]="fixColumnWidth[i]"
-          *ngFor="let tdIndexName of tableColIndex; index as i"
+          [width]="fixColumnWidth[tdIndex]"
+          *ngFor="let tdIndexName of tableColIndex; index as tdIndex"
         >
           <!-- {{trItem[tdIndexName[0])}} -->
           <app-input

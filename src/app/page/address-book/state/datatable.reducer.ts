@@ -55,19 +55,12 @@ const addressBookReducer = createReducer(
       officePhone: payload.phone.officePhone,
       cellPhone: payload.phone.cellPhone,
     };
-    return state
-      .setIn(
-        [
-          'isAddAddressDialogOpen',
-        ],
-        false
-      )
-      .updateIn(
-        [
-          '$$address',
-        ],
-        (list) => list.push(fromJS(newAddress))
-      );
+    return state.updateIn(
+      [
+        '$$address',
+      ],
+      (list) => list.push(fromJS(newAddress))
+    );
   }),
   on(fromAddressActions.addDialogClose, (state) =>
     state.setIn(
