@@ -9,6 +9,8 @@ import * as fromAddressBook from './state/datatable.reducer';
 import { AddressBookEffects } from './state/datatable.effects';
 import { DatatableContainerComponent } from './datatable-container/datatable-container.component';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { AddAddressFormComponent } from './add-address-form/add-address-form.component';
+import { AddressService } from './address-book.service';
 
 const routes: Routes = [
   {
@@ -21,6 +23,7 @@ const routes: Routes = [
   declarations: [
     AddressBookComponent,
     DatatableContainerComponent,
+    AddAddressFormComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +34,9 @@ const routes: Routes = [
     EffectsModule.forFeature([
       AddressBookEffects,
     ]),
+  ],
+  providers: [
+    AddressService,
   ],
   exports: [
     AddressBookComponent,

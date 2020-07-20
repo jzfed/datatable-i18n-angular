@@ -17,7 +17,6 @@ import { DialogContentComponent } from './dialog/dialog-content.component';
     InputComponent,
     LoadingComponent,
     IconComponent,
-
     DatatableToolbarComponent,
     DialogComponent,
     DialogContentComponent,

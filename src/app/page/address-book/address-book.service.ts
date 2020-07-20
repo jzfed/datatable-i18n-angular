@@ -4,15 +4,18 @@ import { dataIndex } from '../../common/ts/constant';
 import { Observable, throwError } from 'rxjs';
 import { API } from '../../common/ts/constant';
 import { AddressState, UsersAddressData } from './state/datatable.model';
+import { Store, select } from '@ngrx/store';
+import * as fromAddressSelector from './state/datatable.selector';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AddressService {
   tableColIndex: string[][];
 
-  constructor(private http: HttpClient) {
+  isOpen$: Observable<boolean>;
+
+  constructor(private http: HttpClient, private readonly store: Store) {
     this.tableColIndex = Object.entries(dataIndex);
+    this.isOpen$ = this.store.pipe(select(fromAddressSelector.selectDialogStatus));
   }
 
   getAddress() {

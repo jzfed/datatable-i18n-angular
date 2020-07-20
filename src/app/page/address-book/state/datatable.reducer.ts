@@ -1,7 +1,8 @@
 import { createReducer, Action, on } from '@ngrx/store';
 import * as fromAddressActions from './datatable.action';
 import { fromJS, List, Map } from 'immutable';
-import { AddressState, UsersAddressData } from './datatable.model';
+import { AddressState, UsersAddressData, AddressAction, UserAddress } from './datatable.model';
+import { from } from 'rxjs';
 
 export const initialState: AddressState = fromJS({
   $$address: [],
@@ -19,7 +20,7 @@ const addressBookReducer = createReducer(
       true
     );
   }),
-  on(fromAddressActions.fetchDataSuccess, (state, action: Action) => {
+  on(fromAddressActions.fetchDataSuccess, (state, action: AddressAction) => {
     return state
       .setIn(
         [
@@ -31,7 +32,7 @@ const addressBookReducer = createReducer(
         [
           '$$address',
         ],
-        (list) => fromJS((action as any).payload)
+        (list) => fromJS(action.payload)
       );
   }),
   on(fromAddressActions.fetchDataFailure, (state) =>
@@ -42,7 +43,33 @@ const addressBookReducer = createReducer(
       false
     )
   ),
-  on(fromAddressActions.addUserAddressSuccess, fromAddressActions.addDialogClose, (state) =>
+  on(fromAddressActions.addUserAddressSuccess, (state, action: AddressAction) => {
+    const payload = action.payload;
+    const itemIndex =
+      state.get('$$address').size > 0 ? state.get('$$address').maxBy((item) => item.get('id')).get('id') : 0;
+    const newAddress: UserAddress = {
+      id: itemIndex + 1,
+      name: payload.name,
+      location: payload.location,
+      office: payload.office,
+      officePhone: payload.phone.officePhone,
+      cellPhone: payload.phone.cellPhone,
+    };
+    return state
+      .setIn(
+        [
+          'isAddAddressDialogOpen',
+        ],
+        false
+      )
+      .updateIn(
+        [
+          '$$address',
+        ],
+        (list) => list.push(fromJS(newAddress))
+      );
+  }),
+  on(fromAddressActions.addDialogClose, (state) =>
     state.setIn(
       [
         'isAddAddressDialogOpen',

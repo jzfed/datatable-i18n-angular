@@ -1,4 +1,5 @@
 import { List, Map } from 'immutable';
+import { Action } from '@ngrx/store';
 
 export interface UserAddress {
   id: number;
@@ -15,6 +16,10 @@ export interface UsersAddressData {
 
 export interface AppState {
   $$datatable: AddressState;
+}
+
+export interface AddressAction extends Action {
+  payload?: any;
 }
 
 export interface AddressState extends Map<string, any> {

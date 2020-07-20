@@ -89,6 +89,11 @@ export class DatatableComponent implements OnInit, OnDestroy, AfterViewInit, Aft
       this.changeDetector.detectChanges();
     }
   }
+
+  scrollToBottom() {
+    this.tbodyDOM.scrollTo(0, this.tbodyDOM.scrollHeight);
+  }
+
   ngOnDestroy() {
     this.resizeSubscription$.unsubscribe();
   }

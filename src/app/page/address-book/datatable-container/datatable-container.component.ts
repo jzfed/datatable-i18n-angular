@@ -10,6 +10,7 @@ import {
   AfterContentChecked,
   DoCheck,
   ChangeDetectionStrategy,
+  ViewChild,
 } from '@angular/core';
 import { CLASS_PREFIX } from '../../../common/ts/constant';
 import { AddressService } from 'src/app/page/address-book/address-book.service';
@@ -19,6 +20,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { UsersAddressData } from '../state/datatable.model';
 import { List } from 'immutable';
+import { DatatableComponent } from 'src/app/components/datatable/datatable.component';
 
 @Component({
   selector: 'app-datatable-container',
@@ -29,12 +31,13 @@ import { List } from 'immutable';
   ],
   encapsulation: ViewEncapsulation.None,
 })
-export class DatatableContainerComponent implements OnInit {
+export class DatatableContainerComponent implements OnInit, AfterViewInit {
   isInput: boolean;
   tableColIndex: string[][];
   data: Observable<Array<UsersAddressData>>;
   isLoading: Observable<boolean>;
   prefix: string = `${CLASS_PREFIX}table-wrapper`;
+  @ViewChild(DatatableComponent) table: DatatableComponent;
 
   constructor(private el: ElementRef, private addressService: AddressService, private readonly store: Store) {}
 
@@ -47,6 +50,9 @@ export class DatatableContainerComponent implements OnInit {
     this.store.dispatch(fromAddressActions.fetchAddressData());
   }
 
+  ngAfterViewInit() {
+    console.log('table child', this.table);
+  }
   // ngAfterViewChecked() {
   //   console.log(
   //     'height',

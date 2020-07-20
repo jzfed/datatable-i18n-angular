@@ -1,0 +1,181 @@
+<form
+  action="#"
+  class="form-container"
+  [formGroup]="addNewAddressForm"
+  (ngSubmit)="onSubmit()"
+>
+
+  <div
+    *ngIf="addNewAddressForm.errors?.identityRevealed && (addNewAddressForm.touched || addNewAddressForm.dirty)"
+    class="cross-validation-error-message form-item form-error"
+  >
+    Name can not match location.
+  </div>
+
+  <div class="form-item">
+    <label for="name">
+      Name:
+    </label>
+    <input
+      type="text"
+      name="name"
+      id="name"
+      required
+      formControlName="name"
+    >
+  </div>
+
+  <div
+    *ngIf="name.invalid && (name.dirty || name.touched)"
+    class="form-item form-error"
+  >
+    <div *ngIf="name.errors.required">
+      Name is required.
+    </div>
+    <div *ngIf="name.errors.minlength">
+      Name must be at least 5 characters long.
+    </div>
+    <div *ngIf="name.errors.forbiddenName">
+      Name can not contain jason.
+    </div>
+  </div>
+
+  <!-- <div class="form-item">
+  <p>Value: {{addNewAddressForm.get('name').value}}</p>
+</div> -->
+  <div class="form-item">
+    <label for="location">
+      Location:
+    </label><input
+      type="text"
+      name="location"
+      id="location"
+      required
+      formControlName="location"
+    >
+  </div>
+
+  <div
+    *ngIf="location.invalid && (location.dirty || location.touched)"
+    class="form-item form-error"
+  >
+    <div *ngIf="location.errors.required">
+      Location is required.
+    </div>
+  </div>
+
+  <div class="form-item">
+    <label for="office">
+      Office:
+    </label><input
+      type="text"
+      name="office"
+      id="office"
+      required
+      formControlName="office"
+    >
+  </div>
+
+  <div
+    *ngIf="office.invalid && (office.dirty || office.touched)"
+    class="form-item form-error"
+  >
+    <div *ngIf="office.errors.required">
+      Office is required.
+    </div>
+  </div>
+
+  <div
+    class="form-group"
+    formGroupName="phone"
+  >
+    <h3>Phone:</h3>
+    <div class="form-item">
+      <label for="officePhone">
+        OfficePhone:
+      </label><input
+        type="text"
+        name="officePhone"
+        id="officePhone"
+        formControlName="officePhone"
+      >
+    </div>
+    <div
+      *ngIf="officePhone.invalid && (officePhone.dirty || officePhone.touched)"
+      class="form-item form-error"
+    >
+      <div *ngIf="officePhone.errors.minlength">
+        The officePhone length should be at least 8 characters.
+      </div>
+    </div>
+    <div class="form-item">
+      <label for="cellPhone">
+        CellPhone:
+      </label><input
+        type="text"
+        name="cellPhone"
+        id="cellPhone"
+        formControlName="cellPhone"
+      >
+    </div>
+    <div
+      *ngIf="cellPhone.invalid && (cellPhone.dirty || cellPhone.touched)"
+      class="form-item form-error"
+    >
+      <div *ngIf="cellPhone.errors.minlength">
+        The cellPhone length should be at least 8 characters.
+      </div>
+    </div>
+  </div>
+  <div
+    class="form-group"
+    formArrayName="aliases"
+  >
+    <h3>Addtional Information:</h3>
+    <app-button
+      [round]="true"
+      (click)="addAlias()"
+    >
+      Add More Information
+    </app-button>
+    <div
+      class="form-item"
+      *ngFor="let alias of aliases.controls; let i=index"
+    >
+      <label for="{{'additionalInfo' + i}}">
+        {{i}}:
+      </label><input
+        type="text"
+        name="{{'additionalInfo' + i}}"
+        id="{{'additionalInfo' + i}}"
+        [formControlName]="i"
+      >
+    </div>
+
+  </div>
+  <div class="form-action">
+    <app-button
+      type="primary"
+      [submit]="true"
+      [round]="true"
+      [disabled]="!addNewAddressForm.valid"
+    >
+      Submit
+    </app-button>
+    <app-button
+      [round]="true"
+      (click)="handlerCancel()"
+    >
+      Cancel
+    </app-button>
+  </div>
+  <div *ngIf="debugInfo">
+    <pre>
+    {{addNewAddressForm.value | json}}
+  </pre>
+    <p>
+      Form Status: {{ addNewAddressForm.status }}
+    </p>
+  </div>
+
+</form>
