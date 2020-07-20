@@ -3,6 +3,7 @@
     <app-button
       type="primary"
       [round]="true"
+      [disabled]="!canAdd"
       (click)="addNewAddress()"
     >
       Add
@@ -10,17 +11,20 @@
     <app-button
       type="primary"
       [round]="true"
+      [disabled]="!canEdit"
     >
       Edit
     </app-button>
     <app-button
       [round]="true"
+      [disabled]="!canUpdate"
       type="primary"
     >
       Update
     </app-button>
     <app-button
       type="danger"
+      [disabled]="!canDelete"
       [round]="true"
     >
       Delete
