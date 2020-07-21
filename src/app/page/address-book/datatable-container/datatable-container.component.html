@@ -1,7 +1,8 @@
 <div [ngClass]="[prefix]">
-  <app-datatable-toolbar>
-    <ng-content></ng-content>
-  </app-datatable-toolbar>
+  <ng-content
+    select=".table-toolbar"
+    #displayToolbar
+  ></ng-content>
   <app-datatable
     [fixColumnWidth]="['5%', '20%', '18%', '15%', '20%', '20%']"
     [tableColIndex]="tableColIndex"

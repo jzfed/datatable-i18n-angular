@@ -25,7 +25,6 @@ import { takeUntil, tap } from 'rxjs/operators';
 })
 export class AddAddressFormComponent implements OnInit, OnDestroy {
   debugInfo: boolean = false;
-  isOpen: Observable<boolean>;
   destroyed$ = new Subject<boolean>();
   @Output() onCancel = new EventEmitter();
   @Output() onSubmitSuccess = new EventEmitter();
@@ -83,7 +82,6 @@ export class AddAddressFormComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder, private readonly store: Store, private action$: Actions) {}
 
   ngOnInit(): void {
-    this.isOpen = this.store.pipe(select(fromAddressSelector.selectDialogStatus));
     this.action$
       .pipe(
         ofType(fromAddressActions.addUserAddressSuccess),

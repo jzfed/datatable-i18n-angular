@@ -1,54 +1,56 @@
 <app-datatable-container #datatableContainer>
-  <div class="table-action">
-    <app-button
-      type="primary"
-      [round]="true"
-      [disabled]="!canAdd"
-      (click)="addNewAddress()"
-    >
-      Add
-    </app-button>
-    <app-button
-      type="primary"
-      [round]="true"
-      [disabled]="!canEdit"
-    >
-      Edit
-    </app-button>
-    <app-button
-      [round]="true"
-      [disabled]="!canUpdate"
-      type="primary"
-    >
-      Update
-    </app-button>
-    <app-button
-      type="danger"
-      [disabled]="!canDelete"
-      [round]="true"
-    >
-      Delete
-    </app-button>
-  </div>
+  <div class="table-toolbar">
+    <div class="table-action">
+      <app-button
+        type="primary"
+        [round]="true"
+        [disabled]="!canAdd"
+        (click)="addNewAddress()"
+      >
+        Add
+      </app-button>
+      <app-button
+        type="primary"
+        [round]="true"
+        [disabled]="!canEdit"
+      >
+        Edit
+      </app-button>
+      <app-button
+        [round]="true"
+        [disabled]="!canUpdate"
+        type="primary"
+      >
+        Update
+      </app-button>
+      <app-button
+        type="danger"
+        [disabled]="!canDelete"
+        [round]="true"
+      >
+        Delete
+      </app-button>
+    </div>
 
-  <div class="language-switcher">
-    <app-button
-      type="default"
-      size="small"
-    >
-      English
-    </app-button>
-    <app-button
-      type="default"
-      size="small"
-    >
-      Chinese
-    </app-button>
+    <div class="language-switcher">
+      <app-button
+        type="default"
+        size="small"
+      >
+        English
+      </app-button>
+      <app-button
+        type="default"
+        size="small"
+      >
+        Chinese
+      </app-button>
+    </div>
   </div>
 
 </app-datatable-container>
 <app-dialog
-  [isOpen]="isOpen | async"
+  [isOpen]="isOpen$ | async"
   [title]="'Add New Address'"
   (onClose)="handleDialogClose()"
   #dialog

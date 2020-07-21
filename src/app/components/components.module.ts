@@ -7,7 +7,6 @@ import { LoadingComponent } from './loading/loading.component';
 import { IconComponent } from './icon/icon.component';
 
 import { DialogComponent } from './dialog/dialog.component';
-import { DatatableToolbarComponent } from './datatable/datatable-toolbar.component';
 import { DialogContentComponent } from './dialog/dialog-content.component';
 
 @NgModule({
@@ -17,7 +16,6 @@ import { DialogContentComponent } from './dialog/dialog-content.component';
     InputComponent,
     LoadingComponent,
     IconComponent,
-    DatatableToolbarComponent,
     DialogComponent,
     DialogContentComponent,
   ],
@@ -30,7 +28,6 @@ import { DialogContentComponent } from './dialog/dialog-content.component';
     InputComponent,
     LoadingComponent,
     IconComponent,
-    DatatableToolbarComponent,
     DialogComponent,
     DialogContentComponent,
   ],

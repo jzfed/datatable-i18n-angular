@@ -5,6 +5,7 @@
         <input
           type="checkbox"
           readOnly
+          [indeterminate]="selectedRowItems.size > 0 && selectedRowItems.size < data.length"
           (change)="selectAll($event)"
         />
       </th>

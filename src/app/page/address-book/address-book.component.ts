@@ -12,7 +12,7 @@ import { DatatableContainerComponent } from './datatable-container/datatable-con
   ],
 })
 export class AddressBookComponent implements OnInit {
-  isOpen: Observable<boolean>;
+  isOpen$: Observable<boolean>;
   canAdd: boolean = true;
   canEdit: boolean = false;
   canUpdate: boolean = false;
@@ -24,7 +24,7 @@ export class AddressBookComponent implements OnInit {
   constructor(private readonly store: Store) {}
 
   ngOnInit(): void {
-    this.isOpen = this.store.pipe(select(fromAddressSelector.selectDialogStatus));
+    this.isOpen$ = this.store.pipe(select(fromAddressSelector.selectDialogStatus));
   }
 
   addNewAddress() {

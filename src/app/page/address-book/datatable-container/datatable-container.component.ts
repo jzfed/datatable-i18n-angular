@@ -11,6 +11,9 @@ import {
   DoCheck,
   ChangeDetectionStrategy,
   ViewChild,
+  ViewContainerRef,
+  ContentChild,
+  ComponentFactoryResolver,
 } from '@angular/core';
 import { CLASS_PREFIX } from '../../../common/ts/constant';
 import { AddressService } from 'src/app/page/address-book/address-book.service';
@@ -31,15 +34,24 @@ import { DatatableComponent } from 'src/app/components/datatable/datatable.compo
   ],
   encapsulation: ViewEncapsulation.None,
 })
-export class DatatableContainerComponent implements OnInit, AfterViewInit, AfterViewChecked, OnChanges {
+export class DatatableContainerComponent
+  implements OnInit, AfterContentInit, AfterViewInit, AfterViewChecked, OnChanges {
   isInput: boolean;
   tableColIndex: string[][];
   data: Observable<Array<UsersAddressData>>;
   isLoading: Observable<boolean>;
   prefix: string = `${CLASS_PREFIX}table-wrapper`;
+  // @ViewChild('displayToolbar') displayToolbar: ViewContainerRef;
+  // @ContentChild(DatatableToolbarComponent) toolbarContent: DatatableToolbarComponent;
   @ViewChild(DatatableComponent) table: DatatableComponent;
 
-  constructor(private el: ElementRef, private addressService: AddressService, private readonly store: Store) {}
+  constructor(
+    private el: ElementRef,
+    private vcr: ViewContainerRef,
+    private addressService: AddressService,
+    private readonly store: Store,
+    private componentFactoryResolver: ComponentFactoryResolver
+  ) {}
 
   ngOnInit(): void {
     this.tableColIndex = this.addressService.tableColIndex;
@@ -50,8 +62,11 @@ export class DatatableContainerComponent implements OnInit, AfterViewInit, After
     this.store.dispatch(fromAddressActions.fetchAddressData());
   }
 
+  ngAfterContentInit() {}
+
   ngAfterViewInit() {
-    console.log('table child', this.table);
+    console.log('DatatableContainerComponent table child', this.table);
+    console.log('DatatableContainerComponent view ref', this.vcr);
   }
 
   selectItem(arr) {

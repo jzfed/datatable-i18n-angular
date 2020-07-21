@@ -11,12 +11,12 @@ import * as fromAddressSelector from './state/datatable.selector';
 export class AddressService {
   tableColIndex: string[][];
 
-  isOpen$: Observable<boolean>;
+  // isOpen$: Observable<boolean>;
   deleteRowItems: Array<object> = [];
 
   constructor(private http: HttpClient, private readonly store: Store) {
     this.tableColIndex = Object.entries(dataIndex);
-    this.isOpen$ = this.store.pipe(select(fromAddressSelector.selectDialogStatus));
+    // this.isOpen$ = this.store.pipe(select(fromAddressSelector.selectDialogStatus));
   }
 
   getAddress() {
