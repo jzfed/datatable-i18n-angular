@@ -1,3 +1,10 @@
-<button [ngClass]="[prefix, type, size, highlightClass, roundClass, loadingClass]" [disabled]="disabled" type="{{submit ? 'submit' : 'button'}}">
+<button
+  [ngClass]="[prefix, type, size]"
+  [class.highlight]="highlight"
+  [class.loading]="loading"
+  [class.round-border]="round"
+  [disabled]="disabled"
+  type="{{submit ? 'submit' : 'button'}}"
+>
   <ng-content></ng-content>
 </button>

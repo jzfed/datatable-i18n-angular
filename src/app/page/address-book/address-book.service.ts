@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { dataIndex } from '../../common/ts/constant';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { API } from '../../common/ts/constant';
-import { AddressState, UsersAddressData } from './state/datatable.model';
+import { AddressState, UsersAddressData, EditItemInfo, UpdateInfo } from './state/datatable.model';
 import { Store, select } from '@ngrx/store';
 import * as fromAddressSelector from './state/datatable.selector';
 
@@ -37,5 +37,9 @@ export class AddressService {
 
   deleteAddress(deleteIds) {
     return this.http.delete(API.address.delete.replace('{userId}', deleteIds[0]));
+  }
+
+  updateAddress(editItemInfo: UpdateInfo) {
+    return this.http.put(API.address.put.replace('{userId}', '1'), editItemInfo);
   }
 }

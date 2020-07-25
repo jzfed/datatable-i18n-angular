@@ -1,7 +1,14 @@
 import { createReducer, Action, on } from '@ngrx/store';
 import * as fromAddressActions from './datatable.action';
 import { fromJS, List, Map } from 'immutable';
-import { AddressState, UsersAddressData, AddressAction, UserAddress } from './datatable.model';
+import {
+  AddressState,
+  UsersAddressData,
+  AddressAction,
+  UserAddress,
+  EditItemInfo,
+  UpdateInfo,
+} from './datatable.model';
 import { from } from 'rxjs';
 
 export const initialState: AddressState = fromJS({
@@ -12,15 +19,20 @@ export const initialState: AddressState = fromJS({
 
 const addressBookReducer = createReducer(
   initialState,
-  on(fromAddressActions.fetchAddressData, fromAddressActions.deleteAddress, (state) => {
-    return state.setIn(
-      [
-        'isLoading',
-      ],
-      true
-    );
-  }),
-  on(fromAddressActions.fetchDataSuccess, (state, action: AddressAction) => {
+  on(
+    fromAddressActions.fetchAddressData,
+    fromAddressActions.deleteAddress,
+    fromAddressActions.updateAddress,
+    (state) => {
+      return state.setIn(
+        [
+          'isLoading',
+        ],
+        true
+      );
+    }
+  ),
+  on(fromAddressActions.fetchDataSuccess, (state, action: AddressAction<any>) => {
     return state
       .setIn(
         [
@@ -35,7 +47,7 @@ const addressBookReducer = createReducer(
         (list) => fromJS(action.payload)
       );
   }),
-  on(fromAddressActions.deleteAddressSuccess, (state, action: AddressAction) => {
+  on(fromAddressActions.deleteAddressSuccess, (state, action: AddressAction<any>) => {
     return state
       .setIn(
         [
@@ -55,15 +67,37 @@ const addressBookReducer = createReducer(
         }
       );
   }),
-  on(fromAddressActions.fetchDataFailure, fromAddressActions.deleteAddressError, (state) =>
-    state.setIn(
-      [
-        'isLoading',
-      ],
-      false
-    )
+  on(fromAddressActions.updateAddressSuccess, (state, action: AddressAction<UpdateInfo>) => {
+    const { index, key, value } = action.payload;
+    return state
+      .setIn(
+        [
+          'isLoading',
+        ],
+        false
+      )
+      .setIn(
+        [
+          '$$address',
+          index,
+          key,
+        ],
+        value
+      );
+  }),
+  on(
+    fromAddressActions.fetchDataFailure,
+    fromAddressActions.deleteAddressError,
+    fromAddressActions.updateAddressError,
+    (state) =>
+      state.setIn(
+        [
+          'isLoading',
+        ],
+        false
+      )
   ),
-  on(fromAddressActions.addAddressSuccess, (state, action: AddressAction) => {
+  on(fromAddressActions.addAddressSuccess, (state, action: AddressAction<any>) => {
     const payload = action.payload;
     const itemIndex =
       state.get('$$address').size > 0 ? state.get('$$address').maxBy((item) => item.get('id')).get('id') : 0;

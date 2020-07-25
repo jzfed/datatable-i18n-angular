@@ -49,6 +49,7 @@ export class DatatableComponent
   implements OnInit, AfterContentInit, AfterViewInit, AfterViewChecked, OnChanges, OnDestroy {
   @Input() fixColumnWidth: Array<string>;
   @Input() tableColIndex;
+  @Input() canSort = false;
   @Input() data: Array<any>;
   @Output() selectChanged = new EventEmitter<Array<any>>();
   @Output() viewUpdated = new EventEmitter();
@@ -146,6 +147,9 @@ export class DatatableComponent
       this.changeDetector.detectChanges();
       // console.log('DatatableComponent -> fitTableSizeToScreen -> tbodyDOM', this.tbodyDOM);
       // console.log('DatatableComponent -> fitTableSizeToScreen -> this.maxBodyHeight', this.maxBodyHeight);
+    } else {
+      this.maxBodyHeight = 0;
+      this.scrollBarWidth = 0;
     }
   }
 

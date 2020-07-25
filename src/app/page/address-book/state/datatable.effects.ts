@@ -4,7 +4,7 @@ import { AddressService } from '../address-book.service';
 import * as fromAddressActions from '../state/datatable.action';
 import { mergeMap, switchMap, map, catchError, tap, timeout } from 'rxjs/operators';
 import { of, from, EMPTY } from 'rxjs';
-import { AddressAction } from './datatable.model';
+import { AddressAction, EditItemInfo, UpdateInfo } from './datatable.model';
 @Injectable()
 export class AddressBookEffects {
   constructor(private actions$: Actions, private addressService: AddressService) {}
@@ -28,7 +28,7 @@ export class AddressBookEffects {
   addNewAddress$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(fromAddressActions.DATATABLE_ADD),
-      switchMap((action: AddressAction) => {
+      switchMap((action: AddressAction<any>) => {
         return this.addressService
           .addNewAddress({ payload: action.payload })
           .pipe(
@@ -42,12 +42,26 @@ export class AddressBookEffects {
   deleteAddress$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(fromAddressActions.DATATABLE_DELETE),
-      switchMap((action: AddressAction) => {
+      switchMap((action: AddressAction<any>) => {
         return this.addressService
           .deleteAddress(action.payload)
           .pipe(
             map(() => fromAddressActions.deleteAddressSuccess({ payload: action.payload })),
             catchError((err) => of(fromAddressActions.deleteAddressError()))
+          );
+      })
+    );
+  });
+
+  updateAddress$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(fromAddressActions.DATATABLE_UPDATE),
+      switchMap((action: AddressAction<UpdateInfo>) => {
+        return this.addressService
+          .updateAddress(action.payload)
+          .pipe(
+            map(() => fromAddressActions.updateAddressSuccess({ payload: action.payload })),
+            catchError((err) => of(fromAddressActions.updateAddressError()))
           );
       })
     );

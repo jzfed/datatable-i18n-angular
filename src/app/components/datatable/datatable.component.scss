@@ -24,7 +24,8 @@
         }
 
         &.disabled {
-          color: $borderGray;
+          color: $darkGray;
+          opacity: .5;
           cursor: not-allowed;
         }
 
@@ -99,13 +100,20 @@
           // outline: 1px solid $primaryBlue;
           animation: bgColorBlueHighlight $animationNormalDuration ease-in-out infinite;
         }
+      }
 
-        &.empty-data {
+      &.empty-data {
+        .datatable-td {
           color: $darkGray;
+          opacity: .5;
           text-align: center;
           height: 650px;
           line-height: 650px;
           flex-grow: 1;
+        }
+
+        &:hover {
+          background-color: $bgGray;
         }
       }
     }
@@ -118,6 +126,9 @@
         }
         &:hover {
           background-color: change-color($primaryBlue, $alpha: 0.1);
+        }
+        &.empty-data {
+          background-color: $bgGray;
         }
       }
     }

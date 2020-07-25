@@ -6,7 +6,11 @@ import {
   EventEmitter,
   OnChanges,
   SimpleChanges,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  ViewChild,
+  ElementRef,
+  AfterViewChecked,
+  AfterViewInit,
 } from '@angular/core';
 import { CLASS_PREFIX } from '../../common/ts/constant';
 
@@ -15,12 +19,14 @@ import { CLASS_PREFIX } from '../../common/ts/constant';
   templateUrl: './input.component.html',
   // changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: [
-    './input.component.scss'
-  ]
+    './input.component.scss',
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InputComponent implements OnInit, OnChanges {
+export class InputComponent implements OnInit, AfterViewChecked {
   @Input() val;
-  @Input() isInput: boolean;
+  @Input() isInput: boolean = false;
+  @Input() disabled: boolean = false;
   @Input() placeHolderClass: string;
   @Input() selected: boolean;
   @Output() onPlaceholderClick = new EventEmitter();
@@ -31,6 +37,8 @@ export class InputComponent implements OnInit, OnChanges {
   @Output() onInputBlur = new EventEmitter();
   @Output() onInputFocus = new EventEmitter();
   @Output() onValueChange = new EventEmitter();
+  @ViewChild('inputDom') inputDom: ElementRef;
+  tabIndex = -1;
 
   prefix: string = `${CLASS_PREFIX}input-wrapper`;
 
@@ -38,12 +46,39 @@ export class InputComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-    //Add '${implements OnChanges}' to the class.
-    // console.log(changes);
+  ngAfterViewChecked() {
+    // if (this.isInput) {
+    //   console.log('set focus');
+    //   this.inputDom.nativeElement.focus();
+    // }
   }
-  // handlePlaceholderClick() {
-  //   this.onPlaceholderClick.emit('child click');
-  // }
+  handlePlaceholderClick($event) {
+    if (this.disabled) return;
+    this.tabIndex = 0;
+    this.onPlaceholderClick.emit($event);
+    console.log('handlePlaceholderClick');
+  }
+
+  handlePlaceHolderBlur($event) {
+    if (this.disabled) return;
+    this.tabIndex = -1;
+    this.onPlaceHolderBlur.emit($event);
+    console.log('onPlaceHolderBlur');
+  }
+
+  handlePlaceholderDoubleClick($event) {
+    if (this.disabled) return;
+    this.onPlaceholderDoubleClick.emit($event);
+  }
+
+  handleInputBlur($event) {
+    if (this.disabled) return;
+    console.log('InputComponent -> handleInputBlur -> handleInputBlur');
+    this.onInputBlur.emit($event);
+  }
+
+  handleChange($event) {
+    if (this.disabled) return;
+    this.onValueChange.emit($event);
+  }
 }

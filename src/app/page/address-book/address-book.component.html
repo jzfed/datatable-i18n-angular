@@ -5,29 +5,34 @@
         type="primary"
         [round]="true"
         [disabled]="!canAdd"
-        (click)="addNewAddress()"
+        (mousedown)="addNewAddress()"
       >
         Add
       </app-button>
       <app-button
         type="primary"
         [round]="true"
+        [highlight]="canEdit"
         [disabled]="!canEdit"
+        (mousedown)="updateSelectEditItem()"
       >
         Edit
       </app-button>
       <app-button
-        [round]="true"
-        [disabled]="!canUpdate"
         type="primary"
+        [round]="true"
+        [highlight]="canUpdate"
+        [disabled]="!canUpdate"
+        (mousedown)="saveUpdateItem()"
       >
         Update
       </app-button>
       <app-button
         type="danger"
+        [highlight]="canDelete"
         [disabled]="!canDelete"
         [round]="true"
-        (click)="deleteAddress()"
+        (mousedown)="deleteAddress()"
       >
         Delete
       </app-button>
@@ -51,15 +56,23 @@
   <app-datatable
     [fixColumnWidth]="['5%','20%','18%','15%','20%','20%']"
     [tableColIndex]="tableColIndex"
-    [data]="data | async"
-    (selectChanged)="selectItem($event)"
+    [data]="data$ | async"
+    [canSort]="canSort"
+    (selectChanged)="selectRowItem($event)"
   >
-    <app-datatable-row *ngFor="let trItem of (data | async) as list; index as rowIndex">
+    <app-datatable-row *ngFor="let trItem of (data$ | async) as list; index as rowIndex">
       <app-datatable-td *ngFor="let tdIndexName of tableColIndex; index as tdIndex">
         <app-input
+          #inputEl
           *ngIf="trItem[tdIndexName[0]]"
           [val]="trItem[tdIndexName[0]]"
-          [isInput]="false"
+          [disabled]="tdIndex === 0"
+          [isInput]="(updateItem$ | async) && updateItem$.value && (updateItem$.value.updateItemIndex === rowIndex) && (updateItem$.value.editColumnKey === tdIndexName[0])"
+          (onPlaceholderClick)="selectEditItem($event, { inputEl: inputEl ,updateItemId: trItem['id'], updateItemIndex: rowIndex, editColumnKey: tdIndexName[0], originalValue: trItem[tdIndexName[0]] })"
+          (onPlaceHolderBlur)="clearEditItem()"
+          (onPlaceholderDoubleClick)="doubleClickEditItem($event, { inputEl: inputEl, updateItemId: trItem['id'], updateItemIndex: rowIndex, editColumnKey: tdIndexName[0], originalValue: trItem[tdIndexName[0]] })"
+          (onInputBlur)="cancelUpdate()"
+          (onValueChange)="handleInputValueChange($event)"
         ></app-input>
       </app-datatable-td>
     </app-datatable-row>
@@ -74,7 +87,7 @@
   <app-dialog-content>
     <app-add-address-form
       (onCancel)="dialog.close()"
-      (onSubmitSuccess)="handleAddSuccess()"
+      (onSubmitSuccess)="handleAddAddressSuccess()"
     ></app-add-address-form>
   </app-dialog-content>
 </app-dialog>

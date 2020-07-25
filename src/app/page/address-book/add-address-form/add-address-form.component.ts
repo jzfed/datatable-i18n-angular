@@ -122,7 +122,7 @@ export class AddAddressFormComponent implements OnInit, OnDestroy {
     this.aliases.push(this.fb.control(''));
   }
 
-  onSubmit() {
+  onSubmit($event) {
     this.store.dispatch(fromAddressActions.addAddress({ payload: this.addNewAddressForm.value }));
     console.log('form value', this.addNewAddressForm.value);
   }

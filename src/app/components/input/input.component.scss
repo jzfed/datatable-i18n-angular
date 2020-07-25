@@ -37,6 +37,21 @@
       border: 1px solid $borderGray;
     }
 
+    &:focus {
+      outline: 1px solid $borderGray;
+    }
+
+    &.disabled {
+      &:hover {
+        cursor: auto;
+        border: 1px solid transparent;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
     &.selected {
       animation: borderHighlightBlue 2s ease-in-out infinite;
     }

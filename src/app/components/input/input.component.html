@@ -1,8 +1,21 @@
 <div [ngClass]="[prefix]">
-  <ng-container *ngIf="isInput; else elseBlock">
-    <input type="text" />
+  <ng-container *ngIf="!disabled && isInput; else elseBlock">
+    <input
+      type="text"
+      #inputDom
+      [value]="val"
+      (blur)="handleInputBlur($event)"
+      (input)="handleChange($event)"
+    />
   </ng-container>
   <ng-template #elseBlock>
-    <div class="placeholder-text">{{val}}</div>
+    <div
+      class="placeholder-text"
+      [ngClass]="{'disabled': disabled}"
+      [tabindex]="tabIndex"
+      (click)="handlePlaceholderClick($event)"
+      (blur)="handlePlaceHolderBlur($event)"
+      (dblclick)="handlePlaceholderDoubleClick($event)"
+    >{{val}}</div>
   </ng-template>
 </div>
