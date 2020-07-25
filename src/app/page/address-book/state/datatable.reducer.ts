@@ -12,7 +12,7 @@ export const initialState: AddressState = fromJS({
 
 const addressBookReducer = createReducer(
   initialState,
-  on(fromAddressActions.fetchAddressData, (state) => {
+  on(fromAddressActions.fetchAddressData, fromAddressActions.deleteAddress, (state) => {
     return state.setIn(
       [
         'isLoading',
@@ -35,7 +35,27 @@ const addressBookReducer = createReducer(
         (list) => fromJS(action.payload)
       );
   }),
-  on(fromAddressActions.fetchDataFailure, (state) =>
+  on(fromAddressActions.deleteAddressSuccess, (state, action: AddressAction) => {
+    return state
+      .setIn(
+        [
+          'isLoading',
+        ],
+        false
+      )
+      .updateIn(
+        [
+          '$$address',
+        ],
+        (list) => {
+          return list.filter((item) => {
+            const result = !action.payload.includes(item.get('id'));
+            return result;
+          });
+        }
+      );
+  }),
+  on(fromAddressActions.fetchDataFailure, fromAddressActions.deleteAddressError, (state) =>
     state.setIn(
       [
         'isLoading',
@@ -43,7 +63,7 @@ const addressBookReducer = createReducer(
       false
     )
   ),
-  on(fromAddressActions.addUserAddressSuccess, (state, action: AddressAction) => {
+  on(fromAddressActions.addAddressSuccess, (state, action: AddressAction) => {
     const payload = action.payload;
     const itemIndex =
       state.get('$$address').size > 0 ? state.get('$$address').maxBy((item) => item.get('id')).get('id') : 0;

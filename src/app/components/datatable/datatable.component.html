@@ -1,26 +1,35 @@
-<table class="striped">
-  <thead>
-    <tr>
-      <th>
+<div class="datatable-table striped">
+  <div class="datatable-thead">
+    <div class="datatable-row">
+      <div class="datatable-th">
         <input
           type="checkbox"
           readOnly
-          [indeterminate]="selectedRowItems.size > 0 && selectedRowItems.size < data.length"
+          [checked]="!(selectedDataItems.length === 0)"
+          [indeterminate]="selectedDataItems.length > 0 && selectedDataItems.length < data.length"
           (change)="selectAll($event)"
         />
-      </th>
+      </div>
       <ng-container *ngFor="let thWidth of fixColumnWidth; index as i">
-        <th [width]="thWidth">{{tableColIndex[i][1]}}</th>
+        <div
+          class="datatable-th"
+          [style.width]="thWidth"
+        >{{tableColIndex[i][1]}}</div>
       </ng-container>
-    </tr>
-  </thead>
-  <tbody
+      <th [style.paddingLeft]="scrollBarWidth + 'px'"></th>
+    </div>
+  </div>
+  <div
     #tbodyRef
+    class="datatable-tbody"
     [style.display]="data.length > 0 ? 'block' : 'table'"
     [style.height]="maxBodyHeight === 0 ? 'auto' : maxBodyHeight + 'px'"
   >
+
+    <ng-content select="app-datatable-row"></ng-content>
+
     <ng-container *ngIf="data.length > 0; else elseTemplate">
-      <tr
+      <!-- <tr
         #rowsRef
         *ngFor="let trItem of data as list; index as rowIndex"
         [ngClass]="{selected: selectedRowItems.has(rowIndex)}"
@@ -37,7 +46,6 @@
           [width]="fixColumnWidth[tdIndex]"
           *ngFor="let tdIndexName of tableColIndex; index as tdIndex"
         >
-          <!-- {{trItem[tdIndexName[0])}} -->
           <app-input
             *ngIf="trItem[tdIndexName[0]]"
             [val]="trItem[tdIndexName[0]]"
@@ -45,17 +53,15 @@
           ></app-input>
         </td>
 
-      </tr>
+      </tr> -->
     </ng-container>
     <ng-template #elseTemplate>
-      <tr>
-        <td
-          colSpan="7"
-          class="empty-data"
-        >
+      <div class="datatable-row">
+        <div class="datatable-td empty-data">
           noData
-        </td>
-      </tr>
+        </div>
+      </div>
     </ng-template>
-  </tbody>
-</table>
+
+  </div>
+</div>

@@ -11,6 +11,7 @@ import { DatatableContainerComponent } from './datatable-container/datatable-con
 import { ComponentsModule } from 'src/app/components/components.module';
 import { AddAddressFormComponent } from './add-address-form/add-address-form.component';
 import { AddressService } from './address-book.service';
+import { DatatableToolbarComponent } from './datatable-toolbar/datatable-toolbar.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,7 @@ const routes: Routes = [
     AddressBookComponent,
     DatatableContainerComponent,
     AddAddressFormComponent,
+    DatatableToolbarComponent,
   ],
   imports: [
     CommonModule,

@@ -1,18 +1,18 @@
 @import '../../common/scss/common.scss';
 
-table {
-  border-collapse: collapse;
+.datatable-table {
   width: 100%;
   border: 1px solid $white;
   background-color: $white;
   box-shadow: 0 0 4px $borderGray;
   // min-height: 700px;
-  thead {
+  .datatable-thead {
     // background: linear-gradient(0deg,$lightGray 0%, $bgGray 100%);
     width: 100%;
     display: block;
-    tr {
-      th {
+    .datatable-row {
+      display: flex;
+      .datatable-th {
         border-bottom: 1px solid $borderGray;
         text-align: left;
         padding: 20px 16px;
@@ -57,12 +57,13 @@ table {
     }
   }
 
-  tbody {
+  .datatable-tbody {
     display: block;
     overflow-y: auto;
     width: 100%;
 
-    tr {
+    .datatable-row {
+      display: flex;
       transition: background-color ease-in-out 0.5s, outline ease-in-out 0.3s;
       &:hover {
         background-color: change-color($primaryBlue, $alpha: 0.1);
@@ -77,13 +78,13 @@ table {
       &.editable {
       }
 
-      td {
+      .datatable-td {
         padding: 8px 8px;
         border-top: 1px solid $lightGray;
         transition: background-color ease-in-out 1s;
 
-        &:nth-child(1) {
-          padding: 10px 16px;
+        &.datatable-checkbox {
+          padding: 18px 16px;
         }
 
         &:nth-child(2) {
@@ -103,13 +104,15 @@ table {
           color: $darkGray;
           text-align: center;
           height: 650px;
+          line-height: 650px;
+          flex-grow: 1;
         }
       }
     }
   }
   &.striped {
-    tbody {
-      tr {
+    .datatable-tbody {
+      .datatable-row {
         &:nth-child(odd) {
           background-color: $bgGray;
         }

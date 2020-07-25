@@ -84,7 +84,7 @@ export class AddAddressFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.action$
       .pipe(
-        ofType(fromAddressActions.addUserAddressSuccess),
+        ofType(fromAddressActions.addAddressSuccess),
         takeUntil(this.destroyed$),
         tap(() => {
           this.addNewAddressForm.reset();
@@ -123,7 +123,7 @@ export class AddAddressFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.store.dispatch(fromAddressActions.addUserAddress({ payload: this.addNewAddressForm.value }));
+    this.store.dispatch(fromAddressActions.addAddress({ payload: this.addNewAddressForm.value }));
     console.log('form value', this.addNewAddressForm.value);
   }
 

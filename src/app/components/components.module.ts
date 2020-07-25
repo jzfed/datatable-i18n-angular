@@ -8,6 +8,10 @@ import { IconComponent } from './icon/icon.component';
 
 import { DialogComponent } from './dialog/dialog.component';
 import { DialogContentComponent } from './dialog/dialog-content.component';
+import { DatatableRowComponent } from './datatable/datatable-row.component';
+import { DatatableTdComponent } from './datatable/datatable-td.component';
+import { DatatableRowDirective } from './datatable/datatable-row.directive';
+import { DatatableTdDirective } from './datatable/datatable-td.directive';
 
 @NgModule({
   declarations: [
@@ -18,6 +22,10 @@ import { DialogContentComponent } from './dialog/dialog-content.component';
     IconComponent,
     DialogComponent,
     DialogContentComponent,
+    DatatableRowComponent,
+    DatatableTdComponent,
+    DatatableRowDirective,
+    DatatableTdDirective,
   ],
   imports: [
     CommonModule,
@@ -30,6 +38,10 @@ import { DialogContentComponent } from './dialog/dialog-content.component';
     IconComponent,
     DialogComponent,
     DialogContentComponent,
+    DatatableRowComponent,
+    DatatableTdComponent,
+    DatatableRowDirective,
+    DatatableTdDirective,
   ],
 })
 export class ComponentsModule {}

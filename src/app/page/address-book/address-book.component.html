@@ -1,5 +1,5 @@
 <app-datatable-container #datatableContainer>
-  <div class="table-toolbar">
+  <app-datatable-toolbar>
     <div class="table-action">
       <app-button
         type="primary"
@@ -27,6 +27,7 @@
         type="danger"
         [disabled]="!canDelete"
         [round]="true"
+        (click)="deleteAddress()"
       >
         Delete
       </app-button>
@@ -46,8 +47,23 @@
         Chinese
       </app-button>
     </div>
-  </div>
-
+  </app-datatable-toolbar>
+  <app-datatable
+    [fixColumnWidth]="['5%','20%','18%','15%','20%','20%']"
+    [tableColIndex]="tableColIndex"
+    [data]="data | async"
+    (selectChanged)="selectItem($event)"
+  >
+    <app-datatable-row *ngFor="let trItem of (data | async) as list; index as rowIndex">
+      <app-datatable-td *ngFor="let tdIndexName of tableColIndex; index as tdIndex">
+        <app-input
+          *ngIf="trItem[tdIndexName[0]]"
+          [val]="trItem[tdIndexName[0]]"
+          [isInput]="false"
+        ></app-input>
+      </app-datatable-td>
+    </app-datatable-row>
+  </app-datatable>
 </app-datatable-container>
 <app-dialog
   [isOpen]="isOpen$ | async"

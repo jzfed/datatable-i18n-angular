@@ -49,10 +49,10 @@ export class DialogComponent implements OnInit, OnDestroy, AfterViewInit {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
     this.dialogContent;
-    console.log(
-      'DialogComponent -> ngAfterViewInit -> this.dialogContent',
-      this.dialogContent.el.nativeElement.innerHTML
-    );
+    // console.log(
+    //   'DialogComponent -> ngAfterViewInit -> this.dialogContent',
+    //   this.dialogContent.el.nativeElement.innerHTML
+    // );
   }
 
   close() {

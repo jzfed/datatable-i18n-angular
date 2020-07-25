@@ -1,16 +1,10 @@
 <div [ngClass]="[prefix]">
   <ng-content
-    select=".table-toolbar"
+    select="app-datatable-toolbar"
     #displayToolbar
   ></ng-content>
-  <app-datatable
-    [fixColumnWidth]="['5%', '20%', '18%', '15%', '20%', '20%']"
-    [tableColIndex]="tableColIndex"
-    [data]="data | async"
-    (selectChanged)="selectItem($event)"
-  >
+  <ng-content select="app-datatable"></ng-content>
 
-  </app-datatable>
   <div
     class="loading-mask"
     [ngClass]="{'loading': isLoading |async}"
