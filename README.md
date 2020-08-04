@@ -17,8 +17,14 @@
 ---
 
 - [x] Design infrastructure.
-- [ ] Develop base components.
-- [ ] Develop the simple version.
+- [x] Develop base components.
+- [x] Develop the simple version.
+- [ ] Add a confirm dialog.
+- [ ] Add header.
+- [ ] Add left navigation.
+- [ ] Add user login page.
+- [ ] Add user profile page.
+- [ ] Implement dark mode.
 - [ ] Implement the i18n support.
 
 ## Technology stack
