@@ -11,7 +11,7 @@ import {
   AfterViewInit,
   AfterContentInit,
   OnDestroy,
-  Input,
+  Input
 } from '@angular/core';
 import { DatatableTdComponent } from './datatable-td.component';
 import { DatatableService, DatatableRowService } from './datatable.service';
@@ -31,23 +31,25 @@ import { DatatableService, DatatableRowService } from './datatable.service';
   host: {
     '[class.datatable-row]': 'true',
     '[class.selected]': 'this.isSelected',
+    '[class.new-add]': 'this.isNewAdd'
   },
   providers: [
-    DatatableRowService,
-  ],
+    DatatableRowService
+  ]
 })
 export class DatatableRowComponent implements OnInit, AfterContentInit, AfterViewInit, OnDestroy {
   rowIndex: number;
   trView: EmbeddedViewRef<void>;
   isChecked: boolean = false;
   isSelected: boolean = false;
+  isNewAdd = false;
   // @ViewChild('trTemplate') templateRef: TemplateRef<void>;
   // @ViewChild('dispalyContentTds', { read: ViewContainerRef })
   // dispalyContentTds: ViewContainerRef;
   // @ContentChildren(DatatableTdComponent) contentTds: QueryList<DatatableTdComponent>;
 
   constructor(public vcr: ViewContainerRef, public datatableService: DatatableService) {
-    this.rowIndex = this.datatableService.rowsCount++;
+    this.rowIndex = this.datatableService.rowsIndex++;
   }
 
   ngOnInit(): void {
@@ -55,6 +57,7 @@ export class DatatableRowComponent implements OnInit, AfterContentInit, AfterVie
       this.isChecked = selectRowsSet.has(this.rowIndex);
       this.isSelected = selectRowsSet.has(this.rowIndex);
     });
+    this.isNewAdd = this.rowIndex === this.datatableService.rowsCount && !this.datatableService.isFirstLoad$.value;
   }
 
   selectRow($event) {

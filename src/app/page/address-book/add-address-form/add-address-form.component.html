@@ -158,16 +158,13 @@
       type="primary"
       [submit]="true"
       [round]="true"
+      [loading]="isLoading"
       [disabled]="!addNewAddressForm.valid"
-    >
-      Submit
-    </app-button>
+    >Submit</app-button>
     <app-button
       [round]="true"
       (click)="handlerCancel()"
-    >
-      Cancel
-    </app-button>
+    >Cancel</app-button>
   </div>
   <div *ngIf="debugInfo">
     <pre>

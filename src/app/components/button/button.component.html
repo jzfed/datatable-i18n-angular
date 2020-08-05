@@ -6,5 +6,9 @@
   [disabled]="disabled"
   type="{{submit ? 'submit' : 'button'}}"
 >
+  <app-icon
+    type="spin"
+    *ngIf="loading"
+  ></app-icon>
   <ng-content></ng-content>
 </button>

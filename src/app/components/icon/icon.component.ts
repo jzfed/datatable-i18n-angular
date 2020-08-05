@@ -5,7 +5,10 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './icon.component.html',
   styleUrls: [
     './icon.component.scss'
-  ]
+  ],
+  host: {
+    class: 'app-icon'
+  }
 })
 export class IconComponent implements OnInit {
   @Input() type: string = 'arrow';

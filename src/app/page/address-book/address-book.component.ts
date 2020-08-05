@@ -9,12 +9,13 @@ import { UsersAddressData, EditItemInfo, UpdateInfo } from './state/datatable.mo
 import { AddressService } from './address-book.service';
 import { tap, takeUntil } from 'rxjs/operators';
 import { Actions, ofType } from '@ngrx/effects';
+import { AddAddressFormComponent } from './add-address-form/add-address-form.component';
 
 @Component({
   templateUrl: './address-book.component.html',
   styleUrls: [
-    './address-book.component.scss',
-  ],
+    './address-book.component.scss'
+  ]
 })
 export class AddressBookComponent implements OnInit, OnDestroy {
   isOpen$: Observable<boolean>;
@@ -32,6 +33,7 @@ export class AddressBookComponent implements OnInit, OnDestroy {
   destroyed$ = new Subject<boolean>();
 
   @ViewChild(DatatableContainerComponent) tableContainer: DatatableContainerComponent;
+  @ViewChild(AddAddressFormComponent) addressForm: AddAddressFormComponent;
 
   constructor(private readonly store: Store, public addressService: AddressService, private action$: Actions) {}
 
@@ -47,7 +49,7 @@ export class AddressBookComponent implements OnInit, OnDestroy {
       this.addressService.getSelectIds(),
       this.isOpen$,
       this.editItem$.asObservable(),
-      this.updateItem$.asObservable(),
+      this.updateItem$.asObservable()
     ]).subscribe(([ selectedIds, isOpen, editItem, updateItem
     ]) => {
       this.canAdd = selectedIds.length === 0 && updateItem === null;
@@ -98,7 +100,7 @@ export class AddressBookComponent implements OnInit, OnDestroy {
       id: this.updateItem$.value.updateItemId,
       index: this.updateItem$.value.updateItemIndex,
       key: this.updateItem$.value.editColumnKey,
-      value: this.updateItem$.value.updateValue,
+      value: this.updateItem$.value.updateValue
     };
     this.store.dispatch(fromAddressActions.updateAddress({ payload: payloadData }));
     this.clearUpdateItem();
@@ -134,6 +136,7 @@ export class AddressBookComponent implements OnInit, OnDestroy {
 
   handleDialogClose() {
     this.store.dispatch(fromAddressActions.addDialogClose());
+    this.addressForm.resetForm();
   }
 
   ngOnDestroy() {

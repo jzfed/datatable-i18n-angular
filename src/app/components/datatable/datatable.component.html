@@ -59,7 +59,7 @@
     <ng-template #elseTemplate>
       <div class="datatable-row empty-data">
         <div class="datatable-td">
-          noData
+          {{isFirstLoad ? '' : 'Empty Data'}}
         </div>
       </div>
     </ng-template>

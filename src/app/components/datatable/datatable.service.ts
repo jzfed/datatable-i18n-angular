@@ -5,12 +5,14 @@ import { BehaviorSubject } from 'rxjs';
 export class DatatableService {
   selectedRowItems$ = new BehaviorSubject<Set<number>>(new Set());
   selectChanged$ = new BehaviorSubject<Array<any>>([]);
+  rowsIndex = 0;
   rowsCount = 0;
+  isFirstLoad$ = new BehaviorSubject<boolean>(true);
   fixColumnWidth = [];
 
   constructor() {
     // this.selectedRowItems$.next(this.selectedRowItems$.value.add(5));
-    this.rowsCount = 0;
+    this.rowsIndex = 0;
   }
 
   selectRow($event, rowIndex) {

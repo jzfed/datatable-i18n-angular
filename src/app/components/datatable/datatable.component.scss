@@ -70,6 +70,10 @@
         background-color: change-color($primaryBlue, $alpha: 0.1);
       }
 
+      &.new-add {
+        animation: bgColorBlueHighlight $animationNormalDuration ease-in-out;
+      }
+
       &.selected {
         // outline: 1px solid change-color($dangerColor, $alpha: 0.5);
         // background-color: change-color($dangerColor, $alpha: 0.02);

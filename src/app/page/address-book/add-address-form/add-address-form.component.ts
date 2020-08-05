@@ -9,7 +9,7 @@ import {
   FormArray,
   AbstractControl,
   ValidatorFn,
-  ValidationErrors,
+  ValidationErrors
 } from '@angular/forms';
 import * as fromAddressSelector from '../state/datatable.selector';
 import * as fromAddressActions from '../state/datatable.action';
@@ -20,12 +20,13 @@ import { takeUntil, tap } from 'rxjs/operators';
   selector: 'app-add-address-form',
   templateUrl: './add-address-form.component.html',
   styleUrls: [
-    './add-address-form.component.scss',
-  ],
+    './add-address-form.component.scss'
+  ]
 })
 export class AddAddressFormComponent implements OnInit, OnDestroy {
   debugInfo: boolean = false;
   destroyed$ = new Subject<boolean>();
+  isLoading = false;
   @Output() onCancel = new EventEmitter();
   @Output() onSubmitSuccess = new EventEmitter();
   // addNewAddressForm = new FormGroup({
@@ -44,37 +45,37 @@ export class AddAddressFormComponent implements OnInit, OnDestroy {
         [
           Validators.required,
           Validators.minLength(5),
-          forbiddenNameValidator(/jason/i),
-        ],
+          forbiddenNameValidator(/jason/i)
+        ]
       ],
       location: [
         '',
         [
-          Validators.required,
-        ],
+          Validators.required
+        ]
       ],
       office: [
         '',
         [
-          Validators.required,
-        ],
+          Validators.required
+        ]
       ],
       phone: this.fb.group({
         officePhone: [
           '',
-          Validators.minLength(8),
+          Validators.minLength(8)
         ],
         cellPhone: [
           '',
-          Validators.minLength(8),
-        ],
+          Validators.minLength(8)
+        ]
       }),
       aliases: this.fb.array(
         [
-          this.fb.control(''),
+          this.fb.control('')
         ],
         { updateOn: 'blur' }
-      ),
+      )
     },
     { validators: identityRevealedValidator }
   );
@@ -87,8 +88,21 @@ export class AddAddressFormComponent implements OnInit, OnDestroy {
         ofType(fromAddressActions.addAddressSuccess),
         takeUntil(this.destroyed$),
         tap(() => {
-          this.addNewAddressForm.reset();
+          this.resetForm();
           this.onSubmitSuccess.emit();
+          this.isLoading = false;
+          this.addNewAddressForm.enable();
+        })
+      )
+      .subscribe();
+    this.action$
+      .pipe(
+        ofType(fromAddressActions.addAddressError),
+        takeUntil(this.destroyed$),
+        tap((action) => {
+          alert(action);
+          this.isLoading = false;
+          this.addNewAddressForm.enable();
         })
       )
       .subscribe();
@@ -124,11 +138,17 @@ export class AddAddressFormComponent implements OnInit, OnDestroy {
 
   onSubmit($event) {
     this.store.dispatch(fromAddressActions.addAddress({ payload: this.addNewAddressForm.value }));
+    this.isLoading = true;
+    this.addNewAddressForm.disable();
     console.log('form value', this.addNewAddressForm.value);
   }
 
-  handlerCancel() {
+  resetForm() {
     this.addNewAddressForm.reset();
+  }
+
+  handlerCancel() {
+    this.resetForm();
     this.onCancel.emit(null);
   }
 

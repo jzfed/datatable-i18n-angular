@@ -23,7 +23,7 @@ import {
   ComponentFactoryResolver,
   ViewRef,
   TemplateRef,
-  Host,
+  Host
 } from '@angular/core';
 import { CLASS_PREFIX } from '../../common/ts/constant';
 import { Observable, Subscription, fromEvent } from 'rxjs';
@@ -38,12 +38,12 @@ import { DatatableRowDirective } from './datatable-row.directive';
   templateUrl: './datatable.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: [
-    './datatable.component.scss',
+    './datatable.component.scss'
   ],
   providers: [
-    DatatableService,
+    DatatableService
   ],
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class DatatableComponent
   implements OnInit, AfterContentInit, AfterViewInit, AfterViewChecked, OnChanges, OnDestroy {
@@ -67,6 +67,7 @@ export class DatatableComponent
   tbodyDOM: HTMLTableElement;
   scrollBarWidth: number;
   selectedDataItems: Array<any>;
+  isFirstLoad: boolean;
 
   constructor(
     private el: ElementRef,
@@ -76,6 +77,9 @@ export class DatatableComponent
   ) {}
 
   ngOnInit() {
+    this.datatableService.isFirstLoad$.asObservable().subscribe((value) => {
+      this.isFirstLoad = value;
+    });
     this.datatableService.fixColumnWidth = this.fixColumnWidth;
     this.resizeObservable$ = fromEvent(window, 'resize').pipe(debounceTime(200));
     this.resizeSubscription$ = this.resizeObservable$.subscribe((evt) => {
@@ -111,7 +115,9 @@ export class DatatableComponent
     this.tbodyDOM = this.tbodyRef.nativeElement;
 
     this.rows.changes.subscribe(() => {
-      this.datatableService.rowsCount = 0;
+      this.datatableService.isFirstLoad$.next(false);
+      this.datatableService.rowsIndex = 0;
+      this.datatableService.rowsCount = this.rows.length;
       this.fitTableSizeToScreen();
       this.viewUpdated.emit();
       console.log('ngAfterViewInit -> this.rows', this.rows);

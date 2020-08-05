@@ -31,6 +31,9 @@
   &.loading {
     cursor: not-allowed;
     opacity: .5;
+    .app-icon {
+      margin-right: 8px;
+    }
   }
 
   //color
