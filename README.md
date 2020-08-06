@@ -20,12 +20,14 @@
 - [x] Develop base components.
 - [x] Develop the simple version.
 - [ ] Add a confirm dialog.
+- [ ] Add animation for the dialog component.
 - [ ] Add header.
 - [ ] Add left navigation.
 - [ ] Add user login page.
 - [ ] Add user profile page.
 - [ ] Implement dark mode.
 - [ ] Implement the i18n support.
+- [ ] Add a local mock server
 
 ## Technology stack
 

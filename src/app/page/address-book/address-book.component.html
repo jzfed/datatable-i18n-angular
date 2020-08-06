@@ -32,7 +32,7 @@
         [highlight]="canDelete"
         [disabled]="!canDelete"
         [round]="true"
-        (mousedown)="deleteAddress()"
+        (mousedown)="showDeleteConfirm()"
       >
         Delete
       </app-button>
@@ -84,10 +84,19 @@
   (onClose)="handleDialogClose()"
   #dialog
 >
-  <app-dialog-content>
+  <div class="dialog-content">
     <app-add-address-form
       (onCancel)="dialog.close()"
       (onSubmitSuccess)="handleAddAddressSuccess()"
     ></app-add-address-form>
-  </app-dialog-content>
+  </div>
 </app-dialog>
+<app-confirm
+  [isLoading]="isDeleteLoading"
+  [isOpen]="isDeleteConfirmOpen"
+  [title]="'Delete Confirmation'"
+  [message]="'Do you want delele the items with id: [' + selectedIds.join(',') + ']?'"
+  (onConfirm)="handleDeleteConfirm()"
+  (onCancel)="handleDeleteCancel()"
+>
+</app-confirm>

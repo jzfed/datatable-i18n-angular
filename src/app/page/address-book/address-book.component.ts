@@ -19,6 +19,9 @@ import { AddAddressFormComponent } from './add-address-form/add-address-form.com
 })
 export class AddressBookComponent implements OnInit, OnDestroy {
   isOpen$: Observable<boolean>;
+  isDeleteConfirmOpen: boolean = false;
+  isDeleteLoading: boolean = false;
+  selectedIds: any[] = [];
   canAdd: boolean = true;
   canEdit: boolean = false;
   canUpdate: boolean = false;
@@ -65,6 +68,8 @@ export class AddressBookComponent implements OnInit, OnDestroy {
         takeUntil(this.destroyed$),
         tap(() => {
           this.tableContainer.table.clearAllSelected();
+          this.isDeleteConfirmOpen = false;
+          this.isDeleteLoading = false;
         })
       )
       .subscribe();
@@ -120,9 +125,21 @@ export class AddressBookComponent implements OnInit, OnDestroy {
     // console.log(selectedIds);
   }
 
+  showDeleteConfirm() {
+    this.selectedIds = this.addressService.selectedIds$.value;
+    this.isDeleteConfirmOpen = true;
+  }
+
+  handleDeleteConfirm() {
+    this.deleteAddress();
+  }
+  handleDeleteCancel() {
+    this.isDeleteConfirmOpen = false;
+  }
+
   deleteAddress() {
-    const selectedIds = this.addressService.selectedIds$.value;
-    this.store.dispatch(fromAddressActions.deleteAddress({ payload: selectedIds }));
+    this.store.dispatch(fromAddressActions.deleteAddress({ payload: this.selectedIds }));
+    this.isDeleteLoading = true;
   }
 
   addNewAddress() {

@@ -7,11 +7,11 @@ import { LoadingComponent } from './loading/loading.component';
 import { IconComponent } from './icon/icon.component';
 
 import { DialogComponent } from './dialog/dialog.component';
-import { DialogContentComponent } from './dialog/dialog-content.component';
 import { DatatableRowComponent } from './datatable/datatable-row.component';
 import { DatatableTdComponent } from './datatable/datatable-td.component';
 import { DatatableRowDirective } from './datatable/datatable-row.directive';
 import { DatatableTdDirective } from './datatable/datatable-td.directive';
+import { ConfirmComponent } from './confirm/confirm.component';
 
 @NgModule({
   declarations: [
@@ -21,14 +21,14 @@ import { DatatableTdDirective } from './datatable/datatable-td.directive';
     LoadingComponent,
     IconComponent,
     DialogComponent,
-    DialogContentComponent,
     DatatableRowComponent,
     DatatableTdComponent,
     DatatableRowDirective,
     DatatableTdDirective,
+    ConfirmComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule
   ],
   exports: [
     DatatableComponent,
@@ -37,11 +37,11 @@ import { DatatableTdDirective } from './datatable/datatable-td.directive';
     LoadingComponent,
     IconComponent,
     DialogComponent,
-    DialogContentComponent,
     DatatableRowComponent,
     DatatableTdComponent,
     DatatableRowDirective,
     DatatableTdDirective,
-  ],
+    ConfirmComponent
+  ]
 })
 export class ComponentsModule {}

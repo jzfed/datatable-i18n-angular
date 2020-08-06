@@ -28,6 +28,17 @@
   }
   .dialog-content {
     background-color: $lightGray;
+    padding: 30px 20px;
+  }
+
+  .dialog-action {
+    border: 1px dotted $borderGray;
+    padding: 10px 20px;
+    background-color: $lightGray;
+    text-align: right;
+    button {
+      margin-left: 10px;
+    }
   }
 }
 .#{$prefix}dialog-mask {

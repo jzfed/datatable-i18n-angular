@@ -1,0 +1,23 @@
+<app-dialog
+  [isOpen]="isOpen"
+  [title]="title"
+  (onClose)="handleCancel()"
+  #dialog
+>
+  <div class="dialog-content">
+    {{message}}
+  </div>
+  <div class="dialog-action">
+    <app-button
+      type="primary"
+      [round]="true"
+      [loading]="isLoading"
+      (click)="handleConfirm()"
+    >OK</app-button>
+    <app-button
+      [round]="true"
+      [disabled]="isLoading"
+      (click)="handleCancel()"
+    >Cancel</app-button>
+  </div>
+</app-dialog>
